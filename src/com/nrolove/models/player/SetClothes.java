@@ -4,8 +4,7 @@ import com.nrolove.models.item.Item;
 
 /**
  *
- * @author 💖 Trần Lại 💖
- * @copyright 💖 GirlkuN 💖
+ * @author 💖 PuPuBug 💖
  *
  */
 public class SetClothes {
@@ -29,6 +28,7 @@ public class SetClothes {
     public byte nappa;
 
     public boolean godClothes;
+    public boolean godClothess;
     public int ctHaiTac = -1;
 
     public void setup() {
@@ -44,6 +44,19 @@ public class SetClothes {
                 }
             } else {
                 this.godClothes = false;
+                break;
+            }
+        }
+         this.godClothess = true;
+        for (int i = 0; i < 5; i++) {
+            Item item = this.player.inventory.itemsBody.get(i);
+            if (item.isNotNullItem()) {
+                if (item.template.id > 662 || item.template.id < 650) {
+                    this.godClothess = false;
+                    break;
+                }
+            } else {
+                this.godClothess = false;
                 break;
             }
         }
@@ -139,6 +152,7 @@ public class SetClothes {
         this.cadic = 0;
         this.nappa = 0;
         this.godClothes = false;
+        this.godClothess = false;
         this.ctHaiTac = -1;
     }
     

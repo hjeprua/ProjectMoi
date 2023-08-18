@@ -120,12 +120,12 @@ public class NpcFactory {
                                             break;
                                         case 2:
                                             
-                                            Service.getInstance().sendThongBao(player, "Tính năng tạm bảo trì.");
-//                                            if (player.clan != null) {
-//                                                ClanService.gI().RemoveClanAll(player);
-//                                            } else {
-//                                                Service.getInstance().sendThongBao(player, "Bạn không có bang hội nào để giải tán.");
-//                                            }
+//                                            Service.getInstance().sendThongBao(player, "Tính năng tạm bảo trì.");
+                                            if (player.clan != null) {
+                                                ClanService.gI().RemoveClanAll(player);
+                                            } else {
+                                                Service.getInstance().sendThongBao(player, "Bạn không có bang hội nào để giải tán.");
+                                            }
 
                                             break;
                                     }

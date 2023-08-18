@@ -441,14 +441,14 @@ public class Pet extends Player {
 
     private void increasePoint() {
         if (this.nPoint != null && Util.canDoWithTime(lastTimeIncreasePoint, 500)) {
-            if (status != FUSION) {
-                if (Util.isTrue(1, 20)) {
-                    this.nPoint.increasePoint((byte) Util.nextInt(3, 4), (short) 1);
-                } else {
-                    this.nPoint.increasePoint((byte) Util.nextInt(0, 2), (short) 1);
-                }
-                lastTimeIncreasePoint = System.currentTimeMillis();
+            if (Util.isTrue(1, 100)) {
+                this.nPoint.increasePoint((byte) 3, (short) 1);
+            } else {
+                byte type = (byte) Util.nextInt(0, 2);
+                short point = (short) Util.nextInt(Manager.RATE_EXP_SERVER);
+                this.nPoint.increasePoint(type, point);
             }
+            lastTimeIncreasePoint = System.currentTimeMillis();
         }
     }
 

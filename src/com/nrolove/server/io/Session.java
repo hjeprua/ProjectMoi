@@ -45,7 +45,6 @@ public class Session {
     private Socket socket;
     Thread sendThread;
     Thread receiveThread;
-    Thread doControllerThread;
     private MessageCollector collector;
     private MessageSender sender;
 
