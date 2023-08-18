@@ -395,7 +395,7 @@ public class CombineServiceNew {
 
                 String npcSay = "|2|Chế tạo " + player.combineNew.itemsCombine.stream().filter(Item::isManhTS).findFirst().get().typeNameManh() + " Thiên sứ " 
                         + player.combineNew.itemsCombine.stream().filter(Item::isCongThucVip).findFirst().get().typeHanhTinh() + "\n"
-                        + "|7|Mảnh ghép " +  mTS.quantity + "/999\n";
+                        + "|7|Mảnh ghép " +  mTS.quantity + "/999\n" + "Thất Bại -99 Mảnh\n";
                 if (daNC != null) {
                     npcSay += "|2|Đá nâng cấp " + player.combineNew.itemsCombine.stream().filter(Item::isDaNangCap).findFirst().get().typeDanangcap() 
                               + " (+" + (daNC.template.id - 1073) + "0% tỉ lệ thành công)\n";
