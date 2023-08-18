@@ -1,0 +1,35 @@
+<<<<<<< HEAD
+24|10|-1|Tàu Vũ Trụ của ta có thể đưa cậu đến hành tinh khác chỉ trong 3 giây. Cậu muốn đi đâu?|Đến<>Namếc|Đến<>Xayda|Siêu thị
+25|11|-1|Tàu vũ trụ Namếc tuy cũ nhưng tốc độ không hề kém bất kỳ loại tàu nào khác. Cậu muốn đi đâu?|Đến<>Trái Đất|Đến<>Xayda|Siêu thị
+26|12|-1|Tàu vũ trụ Xayda sử dụng công nghệ mới nhất, có thể đưa ngươi đi bất kỳ đâu, chỉ cần trả tiền là được.|Đến<>Trái Đất|Đến<>Namếc|Siêu thị
+0|7|-1|Cậu cần trang bị gì cứ đến chỗ tôi nhé|Cửa<>hàng
+7|8|-1|Cậu cần trang bị gì cứ đến chỗ tôi nhé|Cửa<>hàng
+14|9|-1|Cậu cần trang bị gì cứ đến chỗ tôi nhé|Cửa<>hàng
+84|7|-1|Cậu cần trang bị gì cứ đến chỗ tôi nhé|Cửa<>hàng
+84|8|-1|Cậu cần trang bị gì cứ đến chỗ tôi nhé|Cửa<>hàng
+84|9|-1|Cậu cần trang bị gì cứ đến chỗ tôi nhé|Cửa<>hàng
+5|21|-1|Ngươi tìm ta có việc gì ?|Ép sao<>trang bị|Pha lê<>hóa<>trang bị|Chuyển hóa<>Trang bị|Võ đài<>Sinh Tử
+42|21|-1|Ngươi tìm ta có việc gì ?|Cửa hàng<>Bùa|Nâng cấp<>Vật phẩm|Nâng cấp<>Bông tai<>Porata|Làm phép<>Nhập đá|Nhập<>Ngọc Rồng
+43|21|-1|Ngươi tìm ta có việc gì ?|Cửa hàng<>Bùa|Nâng cấp<>Vật phẩm|Nâng cấp<>Bông tai<>Porata|Làm phép<>Nhập đá|Nhập<>Ngọc Rồng
+5|21|1|Ngươi muốn pha lê hóa trang bị bằng cách nào?|Bằng ngọc|Từ chối
+112|21|-1|Ngươi muốn đăng ký thi đấu võ đài?nhiều phần thưởng giá trị đang đợi ngươi đó|Top 100|Đồng ý<>0 ngọc|Từ chối|Về<>đảo rùa
+5|39|-1|Xin chào, ta có một số vật phẩm đặt biệt cậu có muốn xem không?|Cửa<>hàng|Tiệm<>Hớt tóc
+84|21|-1|Ngươi tìm ta có việc gì ?|Cửa hàng<>Bùa|Nâng cấp<>Vật phẩm|Nâng cấp<>Bông tai<>Porata|Làm phép<>Nhập đá|Nhập<>Ngọc Rồng
+=======
+24|10|-1|Tàu Vũ Trụ của ta có thể đưa cậu đến hành tinh khác chỉ trong 3 giây. Cậu muốn đi đâu?|Đến<>Namếc|Đến<>Xayda|Siêu thị
+25|11|-1|Tàu vũ trụ Namếc tuy cũ nhưng tốc độ không hề kém bất kỳ loại tàu nào khác. Cậu muốn đi đâu?|Đến<>Trái Đất|Đến<>Xayda|Siêu thị
+26|12|-1|Tàu vũ trụ Xayda sử dụng công nghệ mới nhất, có thể đưa ngươi đi bất kỳ đâu, chỉ cần trả tiền là được.|Đến<>Trái Đất|Đến<>Namếc|Siêu thị
+0|7|-1|Cậu cần trang bị gì cứ đến chỗ tôi nhé|Cửa<>hàng
+7|8|-1|Cậu cần trang bị gì cứ đến chỗ tôi nhé|Cửa<>hàng
+14|9|-1|Cậu cần trang bị gì cứ đến chỗ tôi nhé|Cửa<>hàng
+84|7|-1|Cậu cần trang bị gì cứ đến chỗ tôi nhé|Cửa<>hàng
+84|8|-1|Cậu cần trang bị gì cứ đến chỗ tôi nhé|Cửa<>hàng
+84|9|-1|Cậu cần trang bị gì cứ đến chỗ tôi nhé|Cửa<>hàng
+5|21|-1|Ngươi tìm ta có việc gì ?|Ép sao<>trang bị|Pha lê<>hóa<>trang bị|Chuyển hóa<>Trang bị|Võ đài<>Sinh Tử
+42|21|-1|Ngươi tìm ta có việc gì ?|Cửa hàng<>Bùa|Nâng cấp<>Vật phẩm|Nâng cấp<>Bông tai<>Porata|Làm phép<>Nhập đá|Nhập<>Ngọc Rồng
+43|21|-1|Ngươi tìm ta có việc gì ?|Cửa hàng<>Bùa|Nâng cấp<>Vật phẩm|Nâng cấp<>Bông tai<>Porata|Làm phép<>Nhập đá|Nhập<>Ngọc Rồng
+5|21|1|Ngươi muốn pha lê hóa trang bị bằng cách nào?|Bằng ngọc|Từ chối
+112|21|-1|Ngươi muốn đăng ký thi đấu võ đài?nhiều phần thưởng giá trị đang đợi ngươi đó|Top 100|Đồng ý<>0 ngọc|Từ chối|Về<>đảo rùa
+5|39|-1|Xin chào, ta có một số vật phẩm đặt biệt cậu có muốn xem không?|Cửa<>hàng|Tiệm<>Hớt tóc
+84|21|-1|Ngươi tìm ta có việc gì ?|Cửa hàng<>Bùa|Nâng cấp<>Vật phẩm|Nâng cấp<>Bông tai<>Porata|Làm phép<>Nhập đá|Nhập<>Ngọc Rồng
+>>>>>>> ab1c7b0bb8b3accbbb9c76cb0413c950af098c2d
