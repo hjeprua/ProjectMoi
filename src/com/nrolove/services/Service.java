@@ -1,36 +1,30 @@
 package com.nrolove.services;
 
-import com.nrolove.consts.ConstNpc;
-import com.nrolove.consts.ConstPlayer;
-import com.nrolove.utils.FileIO;
-import com.nrolove.data.DataGame;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import com.nrolove.models.item.Item;
-import com.nrolove.models.map.ItemMap;
-import com.nrolove.models.mob.Mob;
-import com.nrolove.models.npc.specialnpc.MabuEgg;
-import com.nrolove.jdbc.DBService;
-import com.nrolove.models.player.Pet;
+
+import com.nrolove.consts.ConstNpc;
+import com.nrolove.consts.ConstPlayer;
+import com.nrolove.data.DataGame;
 import com.nrolove.jdbc.daos.AccountDAO;
-import com.nrolove.models.boss.BossFactory;
+import com.nrolove.models.item.Item;
 import com.nrolove.models.item.Item.ItemOption;
+import com.nrolove.models.map.ItemMap;
 import com.nrolove.models.map.Zone;
+import com.nrolove.models.mob.Mob;
+import com.nrolove.models.player.Pet;
 import com.nrolove.models.player.Player;
-import com.nrolove.server.io.Session;
 import com.nrolove.models.skill.Skill;
 import com.nrolove.server.Client;
 import com.nrolove.server.Manager;
-import com.nrolove.server.ServerManager;
 import com.nrolove.server.io.Message;
+import com.nrolove.server.io.Session;
 import com.nrolove.services.func.Input;
+import com.nrolove.utils.FileIO;
 import com.nrolove.utils.Logger;
 import com.nrolove.utils.TimeUtil;
 import com.nrolove.utils.Util;
-import java.io.FileInputStream;
-import java.util.Properties;
-import java.util.Set;
 
 public class Service {
 
@@ -753,36 +747,60 @@ public class Service {
         }
     }
 
-//    public void congTiemNang(Player pl, byte type, int tiemnang) {
-//        Message msg;
-//        try {
-//            msg = new Message(-3);
-//            msg.writer().writeByte(type);// 0 là cộng sm, 1 cộng tn, 2 là cộng cả 2
-//            msg.writer().writeInt(tiemnang);// số tn cần cộng
-//            if (!pl.isPet) {
-//                pl.sendMessage(msg);
-//            } else {
-//                ((Pet) pl).master.nPoint.powerUp(tiemnang);
-//                ((Pet) pl).master.nPoint.tiemNangUp(tiemnang);
-//                ((Pet) pl).master.sendMessage(msg);
-//            }
-//            msg.cleanup();
-//            switch (type) {
-//                case 1:
-//                    pl.nPoint.tiemNangUp(tiemnang);
-//                    break;
-//                case 2:
-//                    pl.nPoint.powerUp(tiemnang);
-//                    pl.nPoint.tiemNangUp(tiemnang);
-//                    break;
-//                default:
-//                    pl.nPoint.powerUp(tiemnang);
-//                    break;
-//            }
-//        } catch (Exception e) {
-//
-//        }
-//    }
+    public void sendPetFollow(Player player, short smallId) {
+        Message msg;
+        try {
+            msg = new Message(31);
+            msg.writer().writeInt((int) player.id);
+            if (smallId == 0) {
+                msg.writer().writeByte(0);
+            }
+            else {
+                msg.writer().writeByte(1);
+                msg.writer().writeShort(smallId);
+                msg.writer().writeByte(1);
+                int[] fr = new int[]{0, 1, 2, 3, 4, 5, 6, 7};
+                msg.writer().writeByte(fr.length);
+                for (int i = 0; i < fr.length; i++) {
+                    msg.writer().writeByte(fr[i]);
+                }
+                msg.writer().writeShort(smallId == 15067 ? 65 : 75);
+                msg.writer().writeShort(smallId == 15067 ? 65 : 75);
+            }
+            sendMessAllPlayerInMap(player, msg);
+            msg.cleanup();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendPetFollowToMe(Player me, Player pl) {
+        Item linhThu = pl.inventory.itemsBody.get(10);
+        if (!linhThu.isNotNullItem()) {
+            return;
+        }
+        short smallId = (short) (linhThu.template.iconID - 1);
+        Message msg;
+        try {
+            msg = new Message(31);
+            msg.writer().writeInt((int) pl.id);
+            msg.writer().writeByte(1);
+            msg.writer().writeShort(smallId);
+            msg.writer().writeByte(1);
+            int[] fr = new int[]{0, 1, 2, 3, 4, 5, 6, 7};
+            msg.writer().writeByte(fr.length);
+            for (int i = 0; i < fr.length; i++) {
+                msg.writer().writeByte(fr[i]);
+            }
+            msg.writer().writeShort(smallId == 15067 ? 65 : 75);
+            msg.writer().writeShort(smallId == 15067 ? 65 : 75);
+            me.sendMessage(msg);
+            msg.cleanup();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     public String get_HanhTinh(int hanhtinh) {
         switch (hanhtinh) {
             case 0:

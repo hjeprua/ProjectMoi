@@ -1,6 +1,9 @@
 package com.nrolove.services;
 
-import com.nrolove.consts.ConstPlayer;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import com.nrolove.models.item.Item;
 import com.nrolove.models.map.blackball.BlackBallWar;
 import com.nrolove.models.npc.specialnpc.MabuEgg;
@@ -9,9 +12,6 @@ import com.nrolove.models.player.Inventory;
 import com.nrolove.models.player.Pet;
 import com.nrolove.models.player.Player;
 import com.nrolove.server.io.Message;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 /**
  *
@@ -419,6 +419,9 @@ public class InventoryService {
     public void itemBodyToBag(Player player, int index) {
         Item item = player.inventory.itemsBody.get(index);
         if (item.isNotNullItem()) {
+                if (index == 10) {
+                    Service.getInstance().sendPetFollow(player, (short) 0);
+                }
             player.inventory.itemsBody.set(index, putItemBag(player, item));
             sendItemBags(player);
             sendItemBody(player);

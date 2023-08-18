@@ -1,48 +1,46 @@
 package com.nrolove.server;
 
-import com.nrolove.consts.ConstIgnoreName;
-import com.nrolove.consts.ConstMap;
-import com.nrolove.services.Service;
-import com.nrolove.utils.Util;
-import com.nrolove.data.DataGame;
-import com.nrolove.server.io.Message;
-import com.nrolove.server.io.Session;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import com.nrolove.services.ClanService;
-import com.nrolove.services.func.ChangeMapService;
-import com.nrolove.services.func.UseItem;
-import com.nrolove.services.FlagBagService;
-import com.nrolove.services.func.Input;
+
+import com.nrolove.consts.ConstIgnoreName;
+import com.nrolove.consts.ConstMap;
 import com.nrolove.consts.ConstNpc;
 import com.nrolove.consts.ConstTask;
+import com.nrolove.data.DataGame;
 import com.nrolove.data.ItemData;
 import com.nrolove.jdbc.DBService;
-import com.nrolove.jdbc.daos.AccountDAO;
 import com.nrolove.models.map.blackball.BlackBallWar;
 import com.nrolove.models.npc.NpcManager;
 import com.nrolove.models.player.Player;
-import com.nrolove.services.PlayerService;
+import com.nrolove.server.io.Message;
+import com.nrolove.server.io.Session;
 import com.nrolove.services.ChatGlobalService;
+import com.nrolove.services.ClanService;
+import com.nrolove.services.FlagBagService;
 import com.nrolove.services.FriendAndEnemyService;
 import com.nrolove.services.IntrinsicService;
 import com.nrolove.services.ItemMapService;
 import com.nrolove.services.ItemTimeService;
 import com.nrolove.services.NpcService;
+import com.nrolove.services.PlayerService;
+import com.nrolove.services.Service;
 import com.nrolove.services.SkillService;
 import com.nrolove.services.SubMenuService;
 import com.nrolove.services.TaskService;
+import com.nrolove.services.func.ChangeMapService;
 import com.nrolove.services.func.CombineServiceNew;
+import com.nrolove.services.func.Input;
 import com.nrolove.services.func.LuckyRound;
 import com.nrolove.services.func.PVPServcice;
-import com.nrolove.services.func.RadaService;
 import com.nrolove.services.func.ShopService;
 import com.nrolove.services.func.TransactionService;
+import com.nrolove.services.func.UseItem;
 import com.nrolove.utils.Logger;
-import java.util.logging.Level;
+import com.nrolove.utils.Util;
 
 public class Controller {
 
@@ -663,6 +661,16 @@ public class Controller {
                     "Chào mừng " + player.name + " đến với NROLORD\n"
                     + "Nhiệm vụ đầu tiên của bạn là di chuyển\n"
                     + "Bạn hãy di chuyển nhân vật theo mũi tên chỉ hướng");
+        }
+
+        if (player.inventory.itemsBody.get(10).isNotNullItem()) {
+            new Thread(() -> {
+                try {
+                    Thread.sleep(1000);
+                    Service.gI().sendPetFollow(player, (short) (player.inventory.itemsBody.get(10).template.iconID - 1));
+                } catch (Exception e) {
+                }
+            }).start();
         }
 
         sendThongBaoServer(player);

@@ -1,5 +1,18 @@
 package com.nrolove.jdbc.daos;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+
 import com.nrolove.consts.ConstPlayer;
 import com.nrolove.jdbc.DBService;
 import com.nrolove.models.clan.Clan;
@@ -17,7 +30,6 @@ import com.nrolove.models.player.Player;
 import com.nrolove.models.skill.Skill;
 import com.nrolove.models.task.TaskMain;
 import com.nrolove.server.Manager;
-import com.nrolove.server.ServerLogSavePlayer;
 import com.nrolove.server.io.Session;
 import com.nrolove.services.ClanService;
 import com.nrolove.services.IntrinsicService;
@@ -27,17 +39,6 @@ import com.nrolove.services.TaskService;
 import com.nrolove.utils.Logger;
 import com.nrolove.utils.SkillUtil;
 import com.nrolove.utils.TimeUtil;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 
 /**
  *
@@ -52,11 +53,11 @@ public class PlayerDAO {
             JSONObject dataObject = new JSONObject();
             dataObject.put("gold", 2000000000);
             dataObject.put("gem", 100000);
-            dataObject.put("ruby", 0);
+            dataObject.put("ruby", 2000000);
             String inventory = dataObject.toJSONString();
             dataObject.clear();
 
-            dataObject.put("map", 39 + gender);
+            dataObject.put("map", 21 + gender);
             dataObject.put("x", 100);
             dataObject.put("y", 384);
             String location = dataObject.toJSONString();
@@ -102,7 +103,7 @@ public class PlayerDAO {
             JSONObject item = new JSONObject();
             JSONArray options = new JSONArray();
             JSONArray opt = new JSONArray();
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 11; i++) {
                 if (i == 0) {
                     opt.add(47);
                     opt.add(def);
@@ -209,7 +210,7 @@ public class PlayerDAO {
             String itemTime = dataObject.toJSONString();
             dataObject.clear();
 
-            dataObject.put("task_id", 0);
+            dataObject.put("task_id", 1);
             dataObject.put("task_index", 0);
             dataObject.put("count", 0);
             String task = dataObject.toJSONString();

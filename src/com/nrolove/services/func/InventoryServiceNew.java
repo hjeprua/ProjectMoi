@@ -1,12 +1,12 @@
 package com.nrolove.services.func;
 
+import java.util.List;
+
 import com.nrolove.models.item.Item;
 import com.nrolove.models.player.Pet;
 import com.nrolove.models.player.Player;
 import com.nrolove.server.io.Message;
 import com.nrolove.services.Service;
-
-import java.util.List;
 
 /**
  *
@@ -24,6 +24,7 @@ public class InventoryServiceNew {
         }
         return i;
     }
+
     private Item putItemBody(Player player, Item item) {
         Item sItem = item;
         if (!item.isNotNullItem()) {
@@ -41,14 +42,16 @@ public class InventoryServiceNew {
             case 24:
             case 27:
             case 11:
-            case 50:
+            case 72:
                 break;
             default:
-                Service.getInstance().sendThongBaoOK(player.isPet ? ((Pet) player).master : player, "Trang bị không phù hợp!");
+                Service.getInstance().sendThongBaoOK(player.isPet ? ((Pet) player).master : player,
+                        "Trang bị không phù hợp!");
                 return sItem;
         }
         if (item.template.gender < 3 && item.template.gender != player.gender) {
-            Service.getInstance().sendThongBaoOK(player.isPet ? ((Pet) player).master : player, "Trang bị không phù hợp!");
+            Service.getInstance().sendThongBaoOK(player.isPet ? ((Pet) player).master : player,
+                    "Trang bị không phù hợp!");
             return sItem;
         }
         long powerRequire = item.template.strRequire;
@@ -59,7 +62,8 @@ public class InventoryServiceNew {
             }
         }
         if (player.nPoint.power < powerRequire) {
-            Service.getInstance().sendThongBaoOK(player.isPet ? ((Pet) player).master : player, "Sức mạnh không đủ yêu cầu!");
+            Service.getInstance().sendThongBaoOK(player.isPet ? ((Pet) player).master : player,
+                    "Sức mạnh không đủ yêu cầu!");
             return sItem;
         }
         int index = -1;
@@ -85,11 +89,14 @@ public class InventoryServiceNew {
                 break;
             case 27:
                 index = 9;
+            case 72:
+                index = 10;
         }
         sItem = player.inventory.itemsBody.get(index);
         player.inventory.itemsBody.set(index, item);
         return sItem;
     }
+
     public void sendItemBags(Player player) {
         sortItems(player.inventory.itemsBag);
         Message msg;
@@ -106,7 +113,7 @@ public class InventoryServiceNew {
                 msg.writer().writeInt(item.quantity);
                 msg.writer().writeUTF(item.getInfo());
                 msg.writer().writeUTF(item.getContent());
-                msg.writer().writeByte(item.itemOptions.size()); //options
+                msg.writer().writeByte(item.itemOptions.size()); // options
                 for (int j = 0; j < item.itemOptions.size(); j++) {
                     msg.writer().writeByte(item.itemOptions.get(j).optionTemplate.id);
                     msg.writer().writeShort(item.itemOptions.get(j).param);
@@ -144,6 +151,7 @@ public class InventoryServiceNew {
             sortItems(list);
         }
     }
+
     public void sendItemBody(Player player) {
         Message msg;
         try {

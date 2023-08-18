@@ -425,7 +425,7 @@ public class Zone {
 
 //            if (!plInfo.isPet && !plInfo.isBoss && plInfo.isAdmin()) {
                 msg.writer().writeShort(plInfo.getAura()); //idauraeff
-                msg.writer().writeByte(7); //seteff
+                msg.writer().writeByte(-1); //seteff
             }
 //            }
 
@@ -435,6 +435,9 @@ public class Zone {
             Logger.logException(MapService.class, e);
         }
         Service.getInstance().sendFlagPlayerToMe(plReceive, plInfo);
+        if (!plInfo.isBoss && !plInfo.isPet &&!plInfo.isNewMiniPet) {
+            Service.gI().sendPetFollowToMe(plReceive, plInfo);
+        }
 
         try {
             if (plInfo.isDie()) {
