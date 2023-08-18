@@ -308,10 +308,6 @@ public class UseItem {
                         case 380: //cskb
                             openCSKB(pl, item);
                             break;
-                        case 1096:// cn c2
-                        case 1097:// bh c2
-                        case 1098:// bk c2
-                        case 1099:// gx c2
                         case 381: //cuồng nộ
                         case 382: //bổ huyết
                         case 383: //bổ khí

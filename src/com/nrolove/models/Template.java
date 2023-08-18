@@ -236,7 +236,7 @@ public class Template {
         public List<ItemReward> foods;
         public List<ItemReward> biKieps;
         public List<ItemReward> events;
-        public List<ItemReward> thiensu;
+        public List<ItemReward> thiensus;
 
         public MobReward() {
             this.itemRewards = new ArrayList<>();
@@ -245,7 +245,7 @@ public class Template {
             this.foods = new ArrayList<>();
             this.biKieps = new ArrayList<>();
             this.events = new ArrayList<>();
-            this.thiensu = new ArrayList<>();
+            this.thiensus = new ArrayList<>();
         }
 
     }

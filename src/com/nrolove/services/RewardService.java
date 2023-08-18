@@ -98,6 +98,7 @@ public class RewardService {
             int cskbSize = mobReward.capsuleKyBi.size();
             int foodSize = mobReward.foods.size();
             int biKiepSize = mobReward.biKieps.size();
+            int thiensuSize = mobReward.thiensus.size();
             if (itemSize > 0) {
                 ItemReward ir = mobReward.itemRewards.get(Util.nextInt(0, itemSize - 1));
                 boolean inMap = false;
@@ -172,18 +173,28 @@ public class RewardService {
                             list.add(itemMap);
                         }
                     }
+                }
+                if (thiensuSize > 0) {
+                    if (player.setClothes.godClothess) {
+                        ItemReward thiensu = mobReward.thiensus.get(Util.nextInt(0, thiensuSize - 1));
+                        if (Util.isTrue(thiensu.ratio, thiensu.typeRatio)) {
+                            ItemMap itemMap = new ItemMap(mob.zone, thiensu.tempId, 1, x, yEnd, player.id);
+                            list.add(itemMap);
+                        }
+                    }
                 } 
                 if(biKiepSize > 0){
                     if(player.cFlag > 0){
-                        ItemReward biKiep = mobReward.biKieps.get(Util.nextInt(0, biKiepSize - 1));
+                        ItemReward biKiep = mobReward.biKieps.get(0);
                         if (Util.isTrue(biKiep.ratio, biKiep.typeRatio)) {
                             ItemMap itemMap = new ItemMap(mob.zone, biKiep.tempId, 1, x, yEnd, player.id);
                             list.add(itemMap);
                         }
                     }
+                    return list;
                 } 
                 
-                if (goldSize > 0 || biKiepSize <= 0 || foodSize <= 0 || cskbSize <= 0) {
+                if (goldSize > 0 || biKiepSize <= 0 || foodSize <= 0 || cskbSize <= 0 || thiensuSize <= 0) {
                     ItemReward gr = mobReward.goldRewards.get(Util.nextInt(0, goldSize - 1));
                     if (Util.isTrue(gr.ratio, gr.typeRatio)) {
                         ItemMap itemMap = new ItemMap(mob.zone, gr.tempId, 1, x, yEnd, player.id);

@@ -13,7 +13,6 @@ import com.nrolove.models.npc.specialnpc.MabuEgg;
 import com.nrolove.models.mob.MobMe;
 import com.nrolove.data.DataGame;
 import com.nrolove.models.DaiHoiVoThuat.DaiHoiVoThuat;
-import com.nrolove.models.Template.CaiTrang;
 import com.nrolove.models.clan.ClanMember;
 import com.nrolove.models.map.MaBu12h.MapMaBu;
 import com.nrolove.models.map.TrapMap;
