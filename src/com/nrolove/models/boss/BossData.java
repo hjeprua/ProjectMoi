@@ -14,9 +14,9 @@ public class BossData {
     private static final int _1_GIAY = 1;
     private static final int _5_GIAY = 5;
     private static final int _10_GIAY = 10;
-    private static final int _30_GIAY = 30;
-    private static final int _1_PHUT = 60 ;
-    private static final int _5_PHUT = 60;
+    private static final int _30_GIAY = 60;
+    private static final int _1_PHUT = 200 ;
+    private static final int _5_PHUT = 600;
     private static final int _10_PHUT = 600;
     private static final int _15_PHUT = 900;
     private static final int _30_PHUT = 1800;
@@ -1379,7 +1379,7 @@ public class BossData {
                     { Skill.MASENKO, 5, 1700 },
                     { Skill.GALICK, 1, 1000 }
             },
-            _5_PHUT);
+            _30_GIAY);
  public static final BossData BuiBui2 = new BossData(
             "Pui Pui", // name
             ConstPlayer.XAYDA, // gender
@@ -1398,7 +1398,7 @@ public class BossData {
                     { Skill.MASENKO, 5, 1700 },
                     { Skill.GALICK, 1, 1000 }
             },
-            _5_PHUT);
+            _30_GIAY);
  public static final BossData Drabura = new BossData(
             "Drabura", // name
             ConstPlayer.XAYDA, // gender
@@ -1417,7 +1417,7 @@ public class BossData {
                     { Skill.MASENKO, 5, 1700 },
                     { Skill.GALICK, 1, 1000 }
             },
-            _5_PHUT);
+            _30_GIAY);
  public static final BossData Drabura2 = new BossData(
             "Drabura", // name
             ConstPlayer.XAYDA, // gender
@@ -1436,7 +1436,7 @@ public class BossData {
                     { Skill.MASENKO, 5, 1700 },
                     { Skill.GALICK, 1, 1000 }
             },
-            _5_PHUT);
+            _30_GIAY);
  public static final BossData Mabu = new BossData(
             "Ma Bư", // name
             ConstPlayer.XAYDA, // gender
@@ -1455,7 +1455,7 @@ public class BossData {
                     { Skill.MASENKO, 5, 1700 },
                     { Skill.GALICK, 1, 1000 }
             },
-            _5_PHUT);
+            _30_GIAY);
   public static final BossData Yacon = new BossData(
             "YaCon", // name
             ConstPlayer.XAYDA, // gender
@@ -1474,6 +1474,6 @@ public class BossData {
                     { Skill.MASENKO, 5, 1700 },
                     { Skill.GALICK, 1, 1000 }
             },
-            _5_PHUT);
+            _30_GIAY);
 
 }
