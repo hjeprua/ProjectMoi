@@ -1,7 +1,12 @@
 package com.nrolove.models.npc;
 
+import static com.nrolove.services.func.SummonDragon.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import com.nrolove.consts.ConstMap;
-import com.nrolove.services.NpcService;
 import com.nrolove.consts.ConstNpc;
 import com.nrolove.consts.ConstPlayer;
 import com.nrolove.consts.ConstTask;
@@ -9,46 +14,41 @@ import com.nrolove.jdbc.daos.PlayerDAO;
 import com.nrolove.models.boss.Boss;
 import com.nrolove.models.boss.BossFactory;
 import com.nrolove.models.boss.BossManager;
-import java.util.HashMap;
-import com.nrolove.services.ClanService;
-import com.nrolove.services.func.ChangeMapService;
-import com.nrolove.services.func.SummonDragon;
-import static com.nrolove.services.func.SummonDragon.SHENRON_1_STAR_WISHES_1;
-import static com.nrolove.services.func.SummonDragon.SHENRON_1_STAR_WISHES_2;
-import static com.nrolove.services.func.SummonDragon.SHENRON_SAY;
-import com.nrolove.services.MapService;
-import com.nrolove.models.player.Player;
 import com.nrolove.models.item.Item;
-import com.nrolove.models.map.MaBu12h.MapMaBu;
 import com.nrolove.models.map.Map;
+import com.nrolove.models.map.MaBu12h.MapMaBu;
 import com.nrolove.models.map.blackball.BlackBallWar;
 import com.nrolove.models.map.phoban.BanDoKhoBau;
 import com.nrolove.models.map.phoban.DoanhTrai;
 import com.nrolove.models.player.Inventory;
 import com.nrolove.models.player.NPoint;
+import com.nrolove.models.player.Player;
 import com.nrolove.server.Maintenance;
 import com.nrolove.services.BanDoKhoBauService;
+import com.nrolove.services.ClanService;
 import com.nrolove.services.DoanhTraiService;
 import com.nrolove.services.FriendAndEnemyService;
 import com.nrolove.services.IntrinsicService;
 import com.nrolove.services.InventoryService;
 import com.nrolove.services.ItemService;
+import com.nrolove.services.MapService;
+import com.nrolove.services.NpcService;
 import com.nrolove.services.OpenPowerService;
 import com.nrolove.services.PetService;
 import com.nrolove.services.PlayerService;
 import com.nrolove.services.Service;
 import com.nrolove.services.TaskService;
+import com.nrolove.services.func.ChangeMapService;
 import com.nrolove.services.func.CombineServiceNew;
 import com.nrolove.services.func.Input;
 import com.nrolove.services.func.LuckyRound;
 import com.nrolove.services.func.PVPServcice;
 import com.nrolove.services.func.ShopService;
+import com.nrolove.services.func.SummonDragon;
 import com.nrolove.services.func.TopService;
 import com.nrolove.utils.Logger;
 import com.nrolove.utils.TimeUtil;
 import com.nrolove.utils.Util;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -1747,6 +1747,93 @@ public class NpcFactory {
                                 if (player.iDMark.isBaseMenu()) {
                                     if (select == 0) {
                                         TopService.gI().showTopPower(player);
+                                    }
+                                }
+                            }
+                        }
+                    };
+                    break;
+                    case ConstNpc.WHIS:
+                    npc = new Npc(mapId, status, cx, cy, tempId, avartar) {
+                        @Override
+                        public void openBaseMenu(Player player) {
+                            if (this.mapId == 154) {
+                                this.createOtherMenu(player, ConstNpc.BASE_MENU,
+                                        "Thử đánh với ta xem nào.\nNgươi còn 1 lượt cơ mà.!",
+                                        "Chế Tạo", "Học \nTuyệt kỹ", "Hướng dẫn");
+                            }
+                        }
+
+                        @Override
+                        public void confirmMenu(Player player, int select) {
+                            if (canOpenNpc(player)) {
+                                if (player.iDMark.isBaseMenu() && this.mapId == 154) {
+                                    switch (select) {
+                                        case 0:
+                                            this.createOtherMenu(player, 5,
+                                                    "Ta sẽ giúp ngươi chế tạo trang bị thiên sứ", "Chế tạo", "Đóng");
+                                            break;
+                                        case 1:
+                                            Item BiKiepTuyetKy = InventoryService.gI()
+                                                    .findItem(player.inventory.itemsBag, 1125);
+                                            if (BiKiepTuyetKy != null) {
+                                                this.createOtherMenu(player, 6,
+                                                        "Ta sẽ giúp ngươi học tuyệt kỹ: %skill \nBí kiếp tuyệt kỹ: "
+                                                                + BiKiepTuyetKy.quantity
+                                                                + "/999\nGiá vàng: 1.500.000.000\nGiá ngọc: 99999",
+                                                        "Đồng ý\nHọc", "Từ chối");
+                                            }
+                                            break;
+                                    }
+                                } else if (player.iDMark.getIndexMenu() == 5) {
+                                    switch (select) {
+                                        case 0:
+                                            CombineServiceNew.gI().openTabCombine(player,
+                                                    CombineServiceNew.DAP_DO_THIEN_SU);
+                                            break;
+                                    }
+                                } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_DAP_DO) {
+                                    if (select == 0) {
+                                        CombineServiceNew.gI().startCombine(player);
+                                    } else if (player.iDMark.getIndexMenu() == 6) {
+                                        switch (select) {
+                                            case 0:
+                                                Item BiKiepTuyetKy = InventoryService.gI()
+                                                        .findItem(player.inventory.itemsBag, 1125);
+                                                if (BiKiepTuyetKy.quantity >= 9999) {
+                                                    switch (player.gender) {
+                                                        //
+                                                        // SkillService.gI().learSkillSpecial(player, Skill.SUPER_KAME);
+                                                        // SkillService.gI().learSkillSpecial(player,
+                                                        // Skill.MA_PHONG_BA);
+                                                        // SkillService.gI().learSkillSpecial(player,
+                                                        // Skill.LIEN_HOAN_CHUONG);
+                                                        // InventoryService.gI().subQuantityItem(player.inventory.itemsBag,
+                                                        // BiKipTuyetKi, 999);
+                                                        // InventoryServiceNew.gI().sendItemBags(player);
+                                                        // }
+                                                        // Service.gI().sendThongBao(player, "Chưa có đủ bí kíp tuyệt
+                                                        // kĩ");
+                                                        // return;
+                                                        case 0:
+                                                            Service.gI().sendThongBao(player, "Trái đất lè");
+                                                            break;
+                                                        case 1:
+                                                            Service.gI().sendThongBao(player, "Namek lè");
+                                                            break;
+                                                        case 2:
+                                                            Service.gI().sendThongBao(player, "Xaday lè");
+                                                            break;
+
+                                                    }
+                                                } else {
+                                                    Service.gI().sendThongBao(player,
+                                                            "Con không đủ bí kíp tuyệt kỹ , hãy luyện tập để mạnh hơn");
+                                                    break;
+                                                }
+                                                break;
+
+                                        }
                                     }
                                 }
                             }

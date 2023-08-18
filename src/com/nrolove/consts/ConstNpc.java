@@ -125,6 +125,7 @@ public class ConstNpc {
     //index sự kiện
     public static final int MENU_OPEN_SUKIEN = 503;
     public static final int MENU_OPENED_SUKIEN = 504;
+    public static final int MENU_DAP_DO = 507;
     
     
     //menu o len tang map mabu

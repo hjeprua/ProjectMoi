@@ -2,15 +2,16 @@ package com.nrolove.utils;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
-import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.nrolove.models.mob.Mob;
 import com.nrolove.models.npc.Npc;
 import com.nrolove.models.player.Player;
-import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Util {
     
@@ -139,6 +140,11 @@ public class Util {
             return true;
         }
         return false;
+    }
+
+    public static int highlightsItem(boolean highlights, int value) {
+        double highlightsNumber = 1.1;
+        return highlights ? (int) (value * highlightsNumber) : value;
     }
     
     public static boolean isTrue(float ratio, int typeRatio){

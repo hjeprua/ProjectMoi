@@ -1,5 +1,11 @@
 package com.nrolove.services;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+
 import com.nrolove.models.Template;
 import com.nrolove.models.Template.ItemOptionTemplate;
 import com.nrolove.models.item.Item;
@@ -7,8 +13,7 @@ import com.nrolove.models.map.ItemMap;
 import com.nrolove.models.shop.ItemShop;
 import com.nrolove.server.Manager;
 import com.nrolove.utils.TimeUtil;
-import java.util.ArrayList;
-import java.util.Date;
+import com.nrolove.utils.Util;
 
 /**
  *
@@ -73,6 +78,17 @@ public class ItemService {
         return item;
     }
 
+    public Item createItemSetKichHoat(int tempId, int quantity) {
+        Item item = new Item();
+        item.template = getTemplate(tempId);
+        item.quantity = quantity;
+        item.itemOptions = createItemNull().itemOptions;
+        item.createTime = System.currentTimeMillis();
+        item.content = item.getContent();
+        item.info = item.getInfo();
+        return item;
+    }
+
     public Item createItemFromItemMap(ItemMap itemMap) {
         Item item = createNewItem(itemMap.itemTemplate.id, itemMap.quantity);
         item.itemOptions = itemMap.options;
@@ -127,6 +143,55 @@ public class ItemService {
         } else {
             return false;
         }
+    }
+    public Item DoThienSu(int itemId, int gender) {
+        Item dots = createItemSetKichHoat(itemId, 1);
+        List<Integer> ao = Arrays.asList(1048, 1049, 1050);
+        List<Integer> quan = Arrays.asList(1051, 1052, 1053);
+        List<Integer> gang = Arrays.asList(1054, 1055, 1056);
+        List<Integer> giay = Arrays.asList(1057, 1058, 1059);
+        List<Integer> nhan = Arrays.asList(1060, 1061, 1062);
+        //áo
+        if (ao.contains(itemId)) {
+            dots.itemOptions.add(new Item.ItemOption(47, Util.highlightsItem(gender == 2, new Random().nextInt(1201) + 2800))); // áo từ 2800-4000 giáp
+        }
+        //quần
+        if (Util.isTrue(80, 100)) {
+            if (quan.contains(itemId)) {
+                dots.itemOptions.add(new Item.ItemOption(22, Util.highlightsItem(gender == 0, new Random().nextInt(11) + 120))); // hp 120k-130k
+            }
+        } else {
+            if (quan.contains(itemId)) {
+                dots.itemOptions.add(new Item.ItemOption(22, Util.highlightsItem(gender == 0, new Random().nextInt(21) + 130))); // hp 130-150k 15%
+            }
+        }
+        //găng
+        if (Util.isTrue(80, 100)) {
+            if (gang.contains(itemId)) {
+                dots.itemOptions.add(new Item.ItemOption(0, Util.highlightsItem(gender == 2, new Random().nextInt(651) + 9350))); // 9350-10000
+            }
+        } else {
+            if (gang.contains(itemId)) {
+                dots.itemOptions.add(new Item.ItemOption(0, Util.highlightsItem(gender == 2, new Random().nextInt(1001) + 10000))); // gang 15% 10-11k -xayda 12k1
+            }
+        }
+        //giày
+        if (Util.isTrue(80, 100)) {
+            if (giay.contains(itemId)) {
+                dots.itemOptions.add(new Item.ItemOption(23, Util.highlightsItem(gender == 1, new Random().nextInt(21) + 90))); // ki 90-110k
+            }
+        } else {
+            if (giay.contains(itemId)) {
+                dots.itemOptions.add(new Item.ItemOption(23, Util.highlightsItem(gender == 1, new Random().nextInt(21) + 110))); // ki 110-130k
+            }
+        }
+
+        if (nhan.contains(itemId)) {
+            dots.itemOptions.add(new Item.ItemOption(14, Util.highlightsItem(gender == 1, new Random().nextInt(3) + 18))); // nhẫn 18-20%
+        }
+        dots.itemOptions.add(new Item.ItemOption(21, 100));
+        dots.itemOptions.add(new Item.ItemOption(30, 1));
+        return dots;
     }
 
     public boolean isOutOfDateTime(Item item) {
