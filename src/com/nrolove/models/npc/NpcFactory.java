@@ -2173,6 +2173,48 @@ public class NpcFactory {
                         }
                     };
                     break;
+                    case ConstNpc.DUONG_TANG:
+                    npc = new Npc(mapId, status, cx, cy, tempId, avartar) {
+                        @Override
+                        public void openBaseMenu(Player player) {
+                            if (canOpenNpc(player)) {
+                                if (this.mapId == 0) {
+                                    this.createOtherMenu(player, ConstNpc.BASE_MENU,
+                                            "Ai mi phò phò,thí chủ hay giúp ta giải cứu đồ đệ của bần tăng đang bị phong ấn tại ngũ hành sơn ?",
+                                            "Đồng Ý", "Từ chối", "Nhận thưởng");
+                                } else if (this.mapId == 123) {
+                                    this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ta có thể giúp gì cho ngươi ?",
+                                            "Về Làng Aru", "Từ chối");
+                                } else {
+                                    super.openBaseMenu(player);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void confirmMenu(Player player, int select) {
+                            if (canOpenNpc(player)) {
+                                if (this.mapId == 0) {
+                                    if (player.iDMark.isBaseMenu()) {
+                                        switch (select) {
+                                            case 0:
+                                                ChangeMapService.gI().changeMap(player, 123, -1, 35, 384);
+                                                break;
+                                        }
+                                    }
+                                } else if (this.mapId == 123) {
+                                    if (player.iDMark.isBaseMenu()) {
+                                        switch (select) {
+                                            case 0:
+                                                ChangeMapService.gI().changeMap(player, 0, -1, 584, 432);
+                                                break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    };
+                    break;
                 default:
                     npc = new Npc(mapId, status, cx, cy, tempId, avartar) {
                         @Override
