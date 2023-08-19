@@ -1,20 +1,19 @@
 package com.nrolove.services;
 
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.nrolove.models.map.Map;
 import com.nrolove.models.map.WayPoint;
 import com.nrolove.models.map.Zone;
 import com.nrolove.models.map.blackball.BlackBallWar;
-import com.nrolove.models.player.Pet;
 import com.nrolove.models.player.Player;
 import com.nrolove.server.Manager;
 import com.nrolove.server.io.Message;
 import com.nrolove.utils.Logger;
 import com.nrolove.utils.Util;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  *
@@ -292,6 +291,10 @@ public class MapService {
     public boolean isMapCold(Map map) {
         int mapId = map.mapId;
         return mapId >= 105 && mapId <= 110;
+    }
+    
+    public boolean isMapNguHanhSon(int mapId) {
+        return mapId >= 122 && mapId <= 124;
     }
 
     public boolean isMapDoanhTrai(int mapId) {

@@ -1,5 +1,8 @@
 package com.nrolove.models.player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.nrolove.consts.ConstPlayer;
 import com.nrolove.consts.ConstRatio;
 import com.nrolove.models.intrinsic.Intrinsic;
@@ -15,8 +18,6 @@ import com.nrolove.services.TaskService;
 import com.nrolove.utils.Logger;
 import com.nrolove.utils.SkillUtil;
 import com.nrolove.utils.Util;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -809,6 +810,9 @@ public class NPoint {
                 if (((Pet) this.player).master.charms.tdDeTu > System.currentTimeMillis()) {
                     tiemNang += tn * 2;
                 }
+            }
+            if (MapService.gI().isMapNguHanhSon(this.player.zone.map.mapId)) {
+                tiemNang *= 3;
             }
             tiemNang *= Manager.RATE_EXP_SERVER;
             tiemNang = calSubTNSM(tiemNang);

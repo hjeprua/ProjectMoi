@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import com.nrolove.consts.ConstIgnoreName;
 import com.nrolove.consts.ConstMap;
@@ -586,15 +585,15 @@ public class Controller {
             } catch (Exception e) {
                 Logger.logException(Controller.class, e);
             } finally {
-                try {
-                    if (rs != null) {
-                        rs.close();
-                    }
-                    if (ps != null) {
-                        ps.close();
-                    }
-                } catch (SQLException ex) {
-                }
+                // try {
+                //     if (rs != null) {
+                //         rs.close();
+                //     }
+                //     if (ps != null) {
+                //         ps.close();
+                //     }
+                // } catch (SQLException ex) {
+                // }
             }
             if (created) {
                 session.login(session.uu, session.pp);

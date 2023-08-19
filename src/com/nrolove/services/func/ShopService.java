@@ -79,6 +79,9 @@ public class ShopService {
             case ConstNpc.SHOP_BILL_HUY_DIET_0:
                 shop = getShop(ConstNpc.BILL, 0, -1);
                 break;
+                case ConstNpc.SHOP_HONG_NGOC:
+                shop = getShop(ConstNpc.QUY_LAO_KAME, 0, -1);
+                break;
         }
         if (shop != null) {
             for (TabShop tab : shop.tabShops) {

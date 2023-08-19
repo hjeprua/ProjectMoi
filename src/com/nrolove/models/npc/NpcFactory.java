@@ -78,8 +78,10 @@ public class NpcFactory {
                         public void openBaseMenu(Player player) {
                             if (canOpenNpc(player)) {
                                 if (!TaskService.gI().checkDoneTaskTalkNpc(player, this)) {
-                                    this.createOtherMenu(player, ConstNpc.BASE_MENU, "Chào con, con muốn ta giúp gì nào?",
-                                            "Bản đồ\nkho báu", "Đổi Quà\nSự Kiện", "Giải tán\nbang hội", "Từ chối");
+                                    this.createOtherMenu(player, ConstNpc.BASE_MENU,
+                                            "Chào con, con muốn ta giúp gì nào?",
+                                            "Bản đồ\nkho báu", "Chưa Có\nSự Kiện", "Shop\nHồng Ngọc",
+                                            "Giải tán\nbang hội", "Từ chối");
                                 }
                             }
                         }
@@ -94,13 +96,14 @@ public class NpcFactory {
                                                 if (player.clan.banDoKhoBau != null) {
                                                     this.createOtherMenu(player, ConstNpc.MENU_OPENED_DBKB,
                                                             "Bang hội của con đang đi tìm kho báu dưới biển cấp độ "
-                                                            + player.clan.banDoKhoBau.level + "\nCon có muốn đi theo không?",
+                                                                    + player.clan.banDoKhoBau.level
+                                                                    + "\nCon có muốn đi theo không?",
                                                             "Đồng ý", "Từ chối");
                                                 } else {
 
                                                     this.createOtherMenu(player, ConstNpc.MENU_OPEN_DBKB,
                                                             "Đây là bản đồ kho báu hải tặc tí hon\nCác con cứ yên tâm lên đường\n"
-                                                            + "Ở đây có ta lo\nNhớ chọn cấp độ vừa sức mình nhé",
+                                                                    + "Ở đây có ta lo\nNhớ chọn cấp độ vừa sức mình nhé",
                                                             "Chọn\ncấp độ", "Từ chối");
                                                 }
                                             } else {
@@ -108,25 +111,26 @@ public class NpcFactory {
                                             }
                                             break;
                                         case 1:
-
                                             this.createOtherMenu(player, ConstNpc.MENU_OPEN_SUKIEN,
                                                     "Sự kiện Halloween chính thức tại Ngọc Rồng Lord\n"
-                                                    + "Chuẩn bị x10 nguyên liệu Kẹo, Bánh Quy, Bí ngô để đổi Giỏ Kẹo cho ta nhé\n"
-                                                    + "Nguyên Liệu thu thập bằng cách đánh quái tại các hành tinh được chỉ định\n"
-                                                    + "Tích lũy 3 Giỏ Kẹo +  3 Vé mang qua đây ta sẽ cho con 1 Hộp Ma Quỷ\n"
-                                                    + "Tích lũy 3 Giỏ Kẹo, 3 Hộp Ma Quỷ + 3 Vé \nmang qua đây ta sẽ cho con 1 hộp quà thú vị.",
-                                                    "Đổi\nGiỏ Kẹo", "Đổi Hộp\nMa Quỷ", "Đổi Hộp\nQuà Halloween", "Từ chối");
+                                                            + "Chuẩn bị x10 nguyên liệu Kẹo, Bánh Quy, Bí ngô để đổi Giỏ Kẹo cho ta nhé\n"
+                                                            + "Nguyên Liệu thu thập bằng cách đánh quái tại các hành tinh được chỉ định\n"
+                                                            + "Tích lũy 3 Giỏ Kẹo +  3 Vé mang qua đây ta sẽ cho con 1 Hộp Ma Quỷ\n"
+                                                            + "Tích lũy 3 Giỏ Kẹo, 3 Hộp Ma Quỷ + 3 Vé \nmang qua đây ta sẽ cho con 1 hộp quà thú vị.",
+                                                    "Đổi\nGiỏ Kẹo", "Đổi Hộp\nMa Quỷ", "Đổi Hộp\nQuà Halloween",
+                                                    "Từ chối");
 
                                             break;
                                         case 2:
-                                            
-//                                            Service.getInstance().sendThongBao(player, "Tính năng tạm bảo trì.");
+                                            ShopService.gI().openShopHongNgoc(player, ConstNpc.SHOP_HONG_NGOC, 0);
+                                            break;
+                                        case 3:
                                             if (player.clan != null) {
                                                 ClanService.gI().RemoveClanAll(player);
                                             } else {
-                                                Service.getInstance().sendThongBao(player, "Bạn không có bang hội nào để giải tán.");
+                                                Service.getInstance().sendThongBao(player,
+                                                        "Bạn không có bang hội nào để giải tán.");
                                             }
-
                                             break;
                                     }
 
@@ -149,9 +153,11 @@ public class NpcFactory {
                                                     GioBingo.itemOptions.add(new Item.ItemOption(74, 0));
                                                     InventoryService.gI().addItemBag(player, GioBingo, false);
                                                     InventoryService.gI().sendItemBags(player);
-                                                    Service.getInstance().sendThongBao(player, "Đổi quà sự kiện thành công");
+                                                    Service.getInstance().sendThongBao(player,
+                                                            "Đổi quà sự kiện thành công");
                                                 } else {
-                                                    Service.getInstance().sendThongBao(player, "Vui lòng chuẩn bị x10 Nguyên Liệu Kẹo, Bánh Quy, Bí Ngô để đổi vật phẩm sự kiện");
+                                                    Service.getInstance().sendThongBao(player,
+                                                            "Vui lòng chuẩn bị x10 Nguyên Liệu Kẹo, Bánh Quy, Bí Ngô để đổi vật phẩm sự kiện");
                                                 }
                                             } else {
                                                 Service.getInstance().sendThongBao(player, "Hành trang đầy.");
@@ -171,9 +177,11 @@ public class NpcFactory {
                                                     Hopmaquy.itemOptions.add(new Item.ItemOption(74, 0));
                                                     InventoryService.gI().addItemBag(player, Hopmaquy, false);
                                                     InventoryService.gI().sendItemBags(player);
-                                                    Service.getInstance().sendThongBao(player, "Đổi quà sự kiện thành công");
+                                                    Service.getInstance().sendThongBao(player,
+                                                            "Đổi quà sự kiện thành công");
                                                 } else {
-                                                    Service.getInstance().sendThongBao(player, "Vui lòng chuẩn bị x3 Vé đổi Kẹo và x3 Giỏ kẹo để đổi vật phẩm sự kiện");
+                                                    Service.getInstance().sendThongBao(player,
+                                                            "Vui lòng chuẩn bị x3 Vé đổi Kẹo và x3 Giỏ kẹo để đổi vật phẩm sự kiện");
                                                 }
                                             } else {
                                                 Service.getInstance().sendThongBao(player, "Hành trang đầy.");
@@ -183,7 +191,8 @@ public class NpcFactory {
                                             if (InventoryService.gI().getCountEmptyBag(player) > 0) {
                                                 Item ve = InventoryService.gI().finditemnguyenlieuVe(player);
                                                 Item giokeo = InventoryService.gI().finditemnguyenlieuGiokeo(player);
-                                                Item hopmaquy = InventoryService.gI().finditemnguyenlieuHopmaquy(player);
+                                                Item hopmaquy = InventoryService.gI()
+                                                        .finditemnguyenlieuHopmaquy(player);
 
                                                 if (ve != null && giokeo != null && hopmaquy != null) {
                                                     Item HopQuaHLW = ItemService.gI().createNewItem((short) 2012, 1);
@@ -196,9 +205,11 @@ public class NpcFactory {
                                                     HopQuaHLW.itemOptions.add(new Item.ItemOption(30, 0));
                                                     InventoryService.gI().addItemBag(player, HopQuaHLW, false);
                                                     InventoryService.gI().sendItemBags(player);
-                                                    Service.getInstance().sendThongBao(player, "Đổi quà hộp quà sự kiện Halloween thành công");
+                                                    Service.getInstance().sendThongBao(player,
+                                                            "Đổi quà hộp quà sự kiện Halloween thành công");
                                                 } else {
-                                                    Service.getInstance().sendThongBao(player, "Vui lòng chuẩn bị x3 Hộp Ma Quỷ, x3 Vé đổi Kẹo và x3 Giỏ kẹo để đổi vật phẩm sự kiện");
+                                                    Service.getInstance().sendThongBao(player,
+                                                            "Vui lòng chuẩn bị x3 Hộp Ma Quỷ, x3 Vé đổi Kẹo và x3 Giỏ kẹo để đổi vật phẩm sự kiện");
                                                 }
                                             } else {
                                                 Service.getInstance().sendThongBao(player, "Hành trang đầy.");
@@ -208,7 +219,8 @@ public class NpcFactory {
                                 } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_OPENED_DBKB) {
                                     switch (select) {
                                         case 0:
-                                            if (player.isAdmin() || player.nPoint.power >= BanDoKhoBau.POWER_CAN_GO_TO_DBKB) {
+                                            if (player.isAdmin()
+                                                    || player.nPoint.power >= BanDoKhoBau.POWER_CAN_GO_TO_DBKB) {
                                                 ChangeMapService.gI().goToDBKB(player);
                                             } else {
                                                 this.npcChat(player, "Sức mạnh của con phải ít nhất phải đạt "
@@ -220,7 +232,8 @@ public class NpcFactory {
                                 } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_OPEN_DBKB) {
                                     switch (select) {
                                         case 0:
-                                            if (player.isAdmin() || player.nPoint.power >= BanDoKhoBau.POWER_CAN_GO_TO_DBKB) {
+                                            if (player.isAdmin()
+                                                    || player.nPoint.power >= BanDoKhoBau.POWER_CAN_GO_TO_DBKB) {
                                                 Input.gI().createFormChooseLevelBDKB(player);
                                             } else {
                                                 this.npcChat(player, "Sức mạnh của con phải ít nhất phải đạt "
@@ -232,7 +245,8 @@ public class NpcFactory {
                                 } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_ACCEPT_GO_TO_BDKB) {
                                     switch (select) {
                                         case 0:
-                                            BanDoKhoBauService.gI().openBanDoKhoBau(player, Byte.parseByte(String.valueOf(PLAYERID_OBJECT.get(player.id))));
+                                            BanDoKhoBauService.gI().openBanDoKhoBau(player,
+                                                    Byte.parseByte(String.valueOf(PLAYERID_OBJECT.get(player.id))));
                                             break;
                                     }
 
