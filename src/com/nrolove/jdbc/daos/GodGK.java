@@ -1,5 +1,16 @@
 package com.nrolove.jdbc.daos;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.Date;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+
 import com.nrolove.consts.ConstPlayer;
 import com.nrolove.data.DataGame;
 import com.nrolove.jdbc.DBService;
@@ -17,7 +28,6 @@ import com.nrolove.models.player.Player;
 import com.nrolove.models.skill.Skill;
 import com.nrolove.models.task.TaskMain;
 import com.nrolove.server.Client;
-import com.nrolove.server.Controller;
 import com.nrolove.server.Manager;
 import com.nrolove.server.io.Session;
 import com.nrolove.server.model.AntiLogin;
@@ -25,23 +35,11 @@ import com.nrolove.services.ClanService;
 import com.nrolove.services.IntrinsicService;
 import com.nrolove.services.ItemService;
 import com.nrolove.services.MapService;
-import com.nrolove.services.PlayerService;
 import com.nrolove.services.Service;
 import com.nrolove.services.TaskService;
 import com.nrolove.utils.Logger;
 import com.nrolove.utils.SkillUtil;
 import com.nrolove.utils.TimeUtil;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 
 /**
  *
@@ -124,7 +122,7 @@ public class GodGK {
 
                             //data kim lượng
                             dataObject = (JSONObject) jv.parse(rs.getString("data_inventory"));
-                            player.inventory.gold = Integer.parseInt(String.valueOf(dataObject.get("gold")));
+                            player.inventory.gold = Long.parseLong(String.valueOf(dataObject.get("gold")));
                             player.inventory.gem = Integer.parseInt(String.valueOf(dataObject.get("gem")));
                             player.inventory.ruby = Integer.parseInt(String.valueOf(dataObject.get("ruby")));
                             dataObject.clear();

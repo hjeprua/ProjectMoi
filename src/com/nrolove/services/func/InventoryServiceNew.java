@@ -89,6 +89,7 @@ public class InventoryServiceNew {
                 break;
             case 27:
                 index = 9;
+                break;
             case 72:
                 index = 10;
         }

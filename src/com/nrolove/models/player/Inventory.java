@@ -2,6 +2,7 @@ package com.nrolove.models.player;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.nrolove.models.item.Item;
 
 /**
@@ -12,7 +13,7 @@ import com.nrolove.models.item.Item;
  */
 public class Inventory {
 
-    public static final int LIMIT_GOLD = 2000000000;
+    public static final long LIMIT_GOLD = 20000000000L;
 
     private Player player;
     
