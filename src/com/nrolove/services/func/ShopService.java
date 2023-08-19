@@ -82,6 +82,9 @@ public class ShopService {
                 case ConstNpc.SHOP_HONG_NGOC:
                 shop = getShop(ConstNpc.QUY_LAO_KAME, 0, -1);
                 break;
+                case ConstNpc.SHOP_THOI_VANG:
+                shop = getShop(ConstNpc.LY_TIEU_NUONG, 0, -1);
+                break;
         }
         if (shop != null) {
             for (TabShop tab : shop.tabShops) {
@@ -209,7 +212,7 @@ public class ShopService {
     }
     // THOI
     public void openShopThoiVang(Player player, int shopId, int order) {
-        Shop shop = getShopThoiVang(player, getShop(ConstNpc.MR_POPO, order, -1));
+        Shop shop = getShopThoiVang(player, getShop(ConstNpc.LY_TIEU_NUONG, order, -1));
         openShopType4(player, shop, shopId);
     }
 public void openShopHongNgoc(Player player, int shopId, int order) {

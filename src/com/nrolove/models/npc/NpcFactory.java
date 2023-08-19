@@ -726,7 +726,7 @@ public class NpcFactory {
                             if (canOpenNpc(player)) {
                                 createOtherMenu(player, ConstNpc.BASE_MENU,
                                         "Xin chào, ta có một số vật phẩm đặt biệt cậu có muốn xem không?",
-                                        "Cửa hàng", "Tiệm\nhớt tóc");
+                                        "Cửa hàng");
                             }
                         }
 
@@ -2209,6 +2209,31 @@ public class NpcFactory {
                                                 ChangeMapService.gI().changeMap(player, 0, -1, 584, 432);
                                                 break;
                                         }
+                                    }
+                                }
+                            }
+                        }
+                    };
+                    break;
+                    case ConstNpc.LY_TIEU_NUONG:
+                    npc = new Npc(mapId, status, cx, cy, tempId, avartar) {
+                        @Override
+                        public void openBaseMenu(Player player) {
+                            if (canOpenNpc(player)) {
+                                if (!TaskService.gI().checkDoneTaskTalkNpc(player, this)) {
+                                    this.createOtherMenu(player, ConstNpc.BASE_MENU, "Cậu bé muốn mua gì nào?",
+                                            "Cửa hàng", "Đóng");
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void confirmMenu(Player player, int select) {
+                            if (canOpenNpc(player)) {
+                                if (player.iDMark.isBaseMenu()) {
+                                    if (select == 0) {
+                                        ShopService.gI().openShopThoiVang(player,
+                                                ConstNpc.SHOP_THOI_VANG, 0);
                                     }
                                 }
                             }
