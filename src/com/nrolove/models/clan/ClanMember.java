@@ -1,8 +1,9 @@
 package com.nrolove.models.clan;
 
+import java.util.Date;
+
 import com.nrolove.models.player.Player;
 import com.nrolove.utils.TimeUtil;
-import java.util.Date;
 
 /**
  *

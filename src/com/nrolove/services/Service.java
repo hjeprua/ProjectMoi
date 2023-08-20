@@ -1174,8 +1174,8 @@ public class Service {
         return (int) n / tiLeXanhDo;
     }
 
-    public static final int[] flagTempId = {363, 364, 365, 366, 367, 368, 369, 370, 371, 519, 520, 747};
-    public static final int[] flagIconId = {2761, 2330, 2323, 2327, 2326, 2324, 2329, 2328, 2331, 4386, 4385, 2325};
+    public static final int[] flagTempId = { 363, 364, 365, 366, 367, 368, 369, 370, 371, 519, 520, 747 };
+    public static final int[] flagIconId = { 2761, 2330, 2323, 2327, 2326, 2324, 2329, 2328, 2331, 4386, 4385, 2325 };
 
     public void openFlagUI(Player pl) {
         Message msg;
@@ -1261,12 +1261,15 @@ public class Service {
     }
 
     public void chooseFlag(Player pl, int index) {
-        if (Util.canDoWithTime(pl.lastTimeChangeFlag, 60000)) {
-            if (MapService.gI().isMapBlackBallWar(pl.zone.map.mapId) || MapService.gI().isMapMaBu(pl.zone.map.mapId)) {
-                changeFlag(pl, index);
-            }
+        if (MapService.gI().isMapBlackBallWar(pl.zone.map.mapId) || MapService.gI().isMapMaBu(pl.zone.map.mapId)) {
+            sendThongBao(pl, "Không thể đổi cờ lúc này!");
+            return;
+        }
+       if (Util.canDoWithTime(pl.lastTimeChangeFlag, 60000)) {
+            changeFlag(pl, index);
         } else {
-            sendThongBao(pl, "Không thể đổi cờ lúc này! Vui lòng đợi " + TimeUtil.getTimeLeft(pl.lastTimeChangeFlag, 60) + " nữa!");
+            sendThongBao(pl, "Không thể đổi cờ lúc này! Vui lòng đợi " + TimeUtil.getTimeLeft(pl.lastTimeChangeFlag, 60)
+                    + " nữa!");
         }
     }
 

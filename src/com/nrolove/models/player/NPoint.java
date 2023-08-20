@@ -412,17 +412,6 @@ public class NPoint {
                 && !this.isKhongLanh) {
             this.hpMax /= 2;
         }
-        //mèo mun
-        if (this.player.effectFlagBag.useMeoMun) {
-            this.hpMax += ((long) this.hpMax * 15 / 100);
-        }
-        
-        //Kiem z
-        if (this.player.effectFlagBag.useKiemz) {
-            this.hpMax += ((long) this.hpMax * 20 / 100);
-        }
-        
-
     }
 
     // (hp sư phụ + hp đệ tử ) + 15%
@@ -463,15 +452,6 @@ public class NPoint {
         //phù
         if (this.player.zone != null && MapService.gI().isMapBlackBallWar(this.player.zone.map.mapId)) {
             this.mpMax *= this.player.effectSkin.xHPKI;
-        }
-        //xiên cá
-        if (this.player.effectFlagBag.useXienCa) {
-            this.mpMax += ((long) this.mpMax * 15 / 100);
-        }
-        
-        //Kiem z
-        if (this.player.effectFlagBag.useKiemz) {
-            this.mpMax += ((long) this.mpMax * 20 / 100);
         }
         
     }
@@ -520,14 +500,6 @@ public class NPoint {
         //ngọc rồng đen 1 sao
         if (this.player.rewardBlackBall.timeOutOfDateReward[0] > System.currentTimeMillis()) {
             this.dame += ((long) this.dame * RewardBlackBall.R1S / 100);
-        }
-        //phóng heo
-        if (this.player.effectFlagBag.usePhongHeo) {
-            this.dame += ((long) this.dame * 15 / 100);
-        }
-        //Kiem z
-        if (this.player.effectFlagBag.useKiemz) {
-            this.dame += ((long) this.dame * 20 / 100);
         }
     }
 

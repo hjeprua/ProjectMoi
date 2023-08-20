@@ -1,23 +1,24 @@
 package com.nrolove.models.clan;
 
-import com.nrolove.jdbc.DBService;
-import com.nrolove.models.map.phoban.BanDoKhoBau;
-import com.nrolove.services.ClanService;
-import com.nrolove.models.map.phoban.DoanhTrai;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import com.nrolove.jdbc.DBService;
+import com.nrolove.models.map.phoban.BanDoKhoBau;
+import com.nrolove.models.map.phoban.DoanhTrai;
 import com.nrolove.models.player.Player;
 import com.nrolove.server.Client;
 import com.nrolove.server.Manager;
-import com.nrolove.services.Service;
 import com.nrolove.server.io.Message;
+import com.nrolove.services.ClanService;
+import com.nrolove.services.Service;
 import com.nrolove.utils.Logger;
 import com.nrolove.utils.Util;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 /**
  *

@@ -1,33 +1,32 @@
 package com.nrolove.services;
 
+import static com.nrolove.models.clan.Clan.*;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.util.List;
-import static com.nrolove.models.clan.Clan.DEPUTY;
-import static com.nrolove.models.clan.Clan.LEADER;
-import static com.nrolove.models.clan.Clan.MEMBER;
-import com.nrolove.models.item.Item;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import com.nrolove.consts.ConstNpc;
 import com.nrolove.jdbc.DBService;
 import com.nrolove.models.Template.FlagBag;
 import com.nrolove.models.clan.Clan;
 import com.nrolove.models.clan.ClanMember;
 import com.nrolove.models.clan.ClanMessage;
+import com.nrolove.models.item.Item;
 import com.nrolove.models.player.Player;
 import com.nrolove.server.Client;
 import com.nrolove.server.Manager;
 import com.nrolove.server.io.Message;
 import com.nrolove.utils.Logger;
 import com.nrolove.utils.Util;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 /**
  *
- * @author 💖 Trần Lại 💖
- * @copyright 💖 GirlkuN 💖
+ * @author 💖 PuPuBug 💖
  *
  */
 public class ClanService {
@@ -116,14 +115,6 @@ public class ClanService {
             }
         }
 
-//        for (Clan clan : Manager.CLANS) {
-//            if (clan.name.contains(name)) {
-//                listClan.add(clan);
-//            }
-//            if (listClan.size() >= 20) {
-//                break;
-//            }
-//        }
         return listClan;
     }
 
@@ -174,7 +165,7 @@ public class ClanService {
     }
 
     //cho đậu
-    public void clanDonate(Player plGive, Message msg) {
+     public void clanDonate(Player plGive, Message msg) {
         Clan clan = plGive.clan;
         if (clan != null) {
             try {
@@ -183,12 +174,18 @@ public class ClanService {
                     if (cmg.receiveDonate < cmg.maxDonate) {
                         Player plReceive = clan.getPlayerOnline(cmg.playerId);
                         if (plReceive != null) {
-                            Item pea = InventoryService.gI().getPeaBox(plGive);
+                            Item pea = null;
+                            for (Item item : plGive.inventory.itemsBox) {
+                                if (item.isNotNullItem() && item.template.type == 6) {
+                                    pea = item;
+                                    break;
+                                }
+                            }
                             if (pea != null) {
                                 InventoryService.gI().subQuantityItem(plGive.inventory.itemsBox, pea, 1);
                                 Item peaCopy = ItemService.gI().createNewItem(pea.template.id);
                                 peaCopy.itemOptions = pea.itemOptions;
-                                InventoryService.gI().addItemBag(plReceive, peaCopy, false);
+                                InventoryService.gI().addItemBag(plReceive, peaCopy,false);
                                 InventoryService.gI().sendItemBags(plReceive);
                                 Service.getInstance().sendThongBao(plReceive, plGive.name + " đã cho bạn " + peaCopy.template.name);
                                 cmg.receiveDonate++;
@@ -620,6 +617,7 @@ public class ClanService {
                 for (ClanMember cm : player.clan.getMembers()) {
                     msg.writer().writeInt(cm.id);
                     msg.writer().writeShort(cm.head);
+                    msg.writer().writeShort(-1);
                     msg.writer().writeShort(cm.leg);
                     msg.writer().writeShort(cm.body);
                     msg.writer().writeUTF(cm.name);
@@ -989,7 +987,7 @@ public class ClanService {
     }
 
     private void checkDoneTaskJoinClan(Clan clan) {
-        if (clan.getMembers().size() >= 5) {
+        if (clan.getMembers().size() >= 0) {
             for (Player player : clan.membersInGame) {
                 TaskService.gI().checkDoneTaskJoinClan(player);
             }
@@ -1045,5 +1043,4 @@ public class ClanService {
             }
         }
     }
-
 }

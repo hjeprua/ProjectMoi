@@ -1,25 +1,24 @@
 package com.nrolove.services;
 
-import com.nrolove.models.player.Player;
-import com.nrolove.server.io.Message;
-import com.nrolove.server.io.Session;
-import com.nrolove.utils.Logger;
-import com.nrolove.utils.TimeUtil;
-import com.nrolove.utils.Util;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.nrolove.models.player.Player;
+import com.nrolove.server.io.Message;
+import com.nrolove.utils.Logger;
+import com.nrolove.utils.TimeUtil;
+import com.nrolove.utils.Util;
+
 /**
  *
- * @author 💖 Trần Lại 💖
- * @copyright 💖 GirlkuN 💖
+ * @author 💖 PuPuBug 💖
  *
  */
 public class ChatGlobalService implements Runnable {
 
-    private static int COUNT_CHAT = 10;
-    private static int COUNT_WAIT = 10;
+    private static int COUNT_CHAT = 50;
+    private static int COUNT_WAIT = 50;
     private static ChatGlobalService i;
 
     private List<ChatGlobal> listChatting;
@@ -82,8 +81,8 @@ public class ChatGlobalService implements Runnable {
             try {
                 if (!listChatting.isEmpty()) {
                     ChatGlobal chat = listChatting.get(0);
-                    if (Util.canDoWithTime(chat.timeSendToPlayer, 10000)) {
-                        listChatting.remove(0);
+                    if (Util.canDoWithTime(chat.timeSendToPlayer, 1000)) {
+                        listChatting.remove(0).dispose();
                     }
                 }
 
@@ -96,7 +95,7 @@ public class ChatGlobalService implements Runnable {
                         chatGlobal(chat);
                     }
                 }
-                Thread.sleep(100);
+                Thread.sleep(1000);
             } catch (Exception e) {
                 Logger.logException(ChatGlobalService.class, e);
             }
@@ -111,6 +110,7 @@ public class ChatGlobalService implements Runnable {
             msg.writer().writeUTF("|5|" + chat.text);
             msg.writer().writeInt((int) chat.playerId);
             msg.writer().writeShort(chat.head);
+            msg.writer().writeShort(-1);
             msg.writer().writeShort(chat.body);
             msg.writer().writeShort(chat.bag); //bag
             msg.writer().writeShort(chat.leg);
@@ -123,11 +123,11 @@ public class ChatGlobalService implements Runnable {
 
     private void transformText(ChatGlobal chat) {
         String text = chat.text;
-        text = text.replaceAll(".com", "***")
-                .replaceAll(".net", "***")
-                .replaceAll(".xyz", "***")
-                .replaceAll(".me", "***")
-                .replaceAll(".pro", "***")
+        text = text.replaceAll("admin", "***")
+                .replaceAll("địt", "***")
+                .replaceAll("lồn", "***")
+                .replaceAll("buồi", "***")
+                .replaceAll("cc", "***")
                 .replaceAll(".mobi", "***")
                 .replaceAll(".online", "***")
                 .replaceAll(".info", "***")
@@ -138,10 +138,10 @@ public class ChatGlobalService implements Runnable {
                 .replaceAll(".io", "***")
                 .replaceAll(".club", "***")
                 .replaceAll("cltx", "***")
-                .replaceAll("cl", "***")
-                .replaceAll("địt", "***")
-                .replaceAll("lồn", "***")
-                .replaceAll("cặc", "***");
+                .replaceAll("ôm cl", "***")
+                .replaceAll("địt mẹ", "***")
+                .replaceAll("như lồn", "***")
+                .replaceAll("như cặc", "***");
         chat.text = text;
     }
 
@@ -167,6 +167,12 @@ public class ChatGlobalService implements Runnable {
             transformText(this);
         }
 
+        private void dispose() {
+            this.playerName = null;
+            this.text = null;
+        }
+
     }
 
 }
+

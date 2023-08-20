@@ -35,6 +35,7 @@ import com.nrolove.services.func.CombineServiceNew;
 import com.nrolove.services.func.Input;
 import com.nrolove.services.func.LuckyRound;
 import com.nrolove.services.func.PVPServcice;
+import com.nrolove.services.func.RadaService;
 import com.nrolove.services.func.ShopService;
 import com.nrolove.services.func.TransactionService;
 import com.nrolove.services.func.UseItem;
@@ -60,7 +61,7 @@ public class Controller {
 //            System.out.println("***************************CMD receive: " + cmd);
             switch (cmd) {
                 case 127:
-//                    RadaService.gI().controller(player, _msg);
+               //    RadaService.gI().controller(player, _msg);
                     break;
                 case -127:
                     if (player != null) {
@@ -245,10 +246,7 @@ public class Controller {
                     break;
                 case -66:
                     int effId = _msg.reader().readShort();
-                    int idT = effId;
-                    if (effId == 25) {
-                        idT = 50; // id eff rong muon thay doi ( hien tai la rong xuong) 
-                        }
+//                    System.out.println("get effect data: " + effId);
                     DataGame.sendEffectTemplate(_session, effId);
                     break;
                 case -62:
@@ -331,7 +329,9 @@ public class Controller {
                     }
                     break;
                 case -40:
-                    UseItem.gI().getItem(_session, _msg);
+                    if(_session != null){
+                        UseItem.gI().getItem(_session, _msg);
+                    }
                     break;
                 case -41:
                     Service.getInstance().sendCaption(_session, _msg.reader().readByte());
@@ -556,8 +556,8 @@ public class Controller {
                 String name = msg.reader().readUTF();
                 int gender = msg.reader().readByte();
                 int hair = msg.reader().readByte();
-                if (name.length() <= 10 && name.length() >= 5) {
-                    ps = con.prepareStatement("select * from player where name = ?");
+                if (name.length() <= 10) {
+     ps = con.prepareStatement("select * from player where name = ?");
                     ps.setString(1, name);
                     rs = ps.executeQuery();
                     if (rs.first()) {
@@ -655,7 +655,7 @@ public class Controller {
         //last time use skill
         Service.getInstance().sendTimeSkill(player);
 
-        if (TaskService.gI().getIdTask(player) == ConstTask.TASK_0_0) {
+        if (TaskService.gI().getIdTask(player) == ConstTask.TASK_1_0) {
             NpcService.gI().createTutorial(player, -1,
                     "Chào mừng " + player.name + " đến với NROLORD\n"
                     + "Nhiệm vụ đầu tiên của bạn là di chuyển\n"
