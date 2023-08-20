@@ -2,18 +2,18 @@ package com.nrolove.models.player;
 
 import com.nrolove.consts.ConstPlayer;
 import com.nrolove.models.Template.CaiTrang;
-import com.nrolove.services.MapService;
 import com.nrolove.models.mob.Mob;
 import com.nrolove.models.skill.Skill;
 import com.nrolove.server.Manager;
-import com.nrolove.utils.SkillUtil;
-import com.nrolove.services.Service;
-import com.nrolove.utils.Util;
 import com.nrolove.server.io.Message;
 import com.nrolove.services.ItemTimeService;
+import com.nrolove.services.MapService;
 import com.nrolove.services.PlayerService;
+import com.nrolove.services.Service;
 import com.nrolove.services.SkillService;
+import com.nrolove.utils.SkillUtil;
 import com.nrolove.utils.TimeUtil;
+import com.nrolove.utils.Util;
 
 /**
  *
@@ -442,7 +442,7 @@ public class Pet extends Player {
     private void increasePoint() {
         if (this.nPoint != null && Util.canDoWithTime(lastTimeIncreasePoint, 500)) {
             if (Util.isTrue(1, 100)) {
-                this.nPoint.increasePoint((byte) 3, (short) 1);
+                this.nPoint.increasePoint((byte) 2, (short) 1);
             } else {
                 byte type = (byte) Util.nextInt(0, 2);
                 short point = (short) Util.nextInt(Manager.RATE_EXP_SERVER);

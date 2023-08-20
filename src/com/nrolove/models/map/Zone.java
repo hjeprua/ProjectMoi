@@ -253,7 +253,7 @@ public class Zone {
         if (itemMap != null) {
             if (itemMap.playerId == player.id || itemMap.playerId == -1) {
                 Item item = ItemService.gI().createItemFromItemMap(itemMap);
-                boolean picked = InventoryService.gI().addItemBag(player, item, false);
+                boolean picked = InventoryService.gI().addItemBag(player, item, true);
                 if (picked) {
                     int itemType = item.template.type;
                     Message msg;

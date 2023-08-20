@@ -224,7 +224,7 @@ public class InventoryService {
                             int add = 99 - it.quantity;
                             it.quantity = 99;
                             item.quantity -= add;
-//                            return true;
+                            // return true;
                         } else {
                             return false;
                         }
@@ -252,15 +252,15 @@ public class InventoryService {
 
     private boolean isItemIncremental(Item item) { //item cộng dồn số lượng
         switch (item.template.type) {
-            case 8: //vật phẩm nhiệm vụ
-            case 12: //ngọc rồng
-            case 30: //sao pha lê
-            case 6: //đậu thần
-            case 29: //item time, đồ ăn
-            case 25: //rađa dò ngọc namếc
-            case 72: //đồ tạp
-            case 14: //đá nâng cấp
-            case 50: //vé đổi đồ hủy diệt
+            case 8: // vật phẩm nhiệm vụ
+            case 12: // ngọc rồng
+            case 30: // sao pha lê
+            case 6: // đậu thần
+            case 29: // item time, đồ ăn
+            case 25: // rađa dò ngọc namếc
+            case 27: // đồ tạp
+            case 14: // đá nâng cấp
+            case 50: // vé đổi đồ hủy diệt
                 return true;
             default:
                 return false;
