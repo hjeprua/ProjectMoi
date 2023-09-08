@@ -12,6 +12,7 @@ import com.nrolove.models.player.Inventory;
 import com.nrolove.models.player.Pet;
 import com.nrolove.models.player.Player;
 import com.nrolove.server.io.Message;
+import com.nrolove.utils.Logger;
 
 /**
  *
@@ -145,7 +146,7 @@ public class InventoryService {
 
         //mở rộng hành trang - rương đồ
         if (item.template.id == 517) {
-            if (player.inventory.itemsBag.size() < 40) {
+            if (player.inventory.itemsBag.size() < 80) {
                 player.inventory.itemsBag.add(ItemService.gI().createItemNull());
                 Service.getInstance().sendThongBaoOK(player, "Hành trang của bạn đã được mở rộng thêm 1 ô");
                 return true;
@@ -154,7 +155,7 @@ public class InventoryService {
                 return false;
             }
         } else if (item.template.id == 518) {
-            if (player.inventory.itemsBox.size() < 40) {
+            if (player.inventory.itemsBox.size() < 80) {
                 player.inventory.itemsBox.add(ItemService.gI().createItemNull());
                 Service.getInstance().sendThongBaoOK(player, "Rương đồ của bạn đã được mở rộng thêm 1 ô");
                 return true;
@@ -224,7 +225,7 @@ public class InventoryService {
                             int add = 99 - it.quantity;
                             it.quantity = 99;
                             item.quantity -= add;
-                            // return true;
+//                            return true;
                         } else {
                             return false;
                         }
@@ -406,11 +407,17 @@ public class InventoryService {
 
     //==========================================================================
     public void itemBagToBody(Player player, int index) {
+        if (index == -1) {
+            Logger.log("Player error use item: "+ player.name);
+            Service.getInstance().sendThongBaoOK(player, "Lỗi sửa item. liên hệ admin để được hỗ trợ");
+            return;
+        }
         Item item = player.inventory.itemsBag.get(index);
         if (item.isNotNullItem()) {
             player.inventory.itemsBag.set(index, putItemBody(player, item));
             sendItemBags(player);
             sendItemBody(player);
+            Service.gI().sendFlagBag(player);
             Service.getInstance().Send_Caitrang(player);
             Service.getInstance().point(player);
         }
@@ -506,7 +513,7 @@ public class InventoryService {
 
     public void itemBagToBox(Player player, int index) {
         Item item = player.inventory.itemsBag.get(index);
-        if (item != null) {
+        if (item != null && item.template != null) {
             if (item.template.id == 457) {
                 Service.getInstance().sendThongBao(player, "Bug ?");
                 return;

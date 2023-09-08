@@ -136,7 +136,7 @@ public class BossData {
             Boss.DAME_NORMAL, // type dame
             Boss.HP_NORMAL, // type hp
             100000, // dame
-            new int[][] { { 1500000000 } }, // hp
+            new int[][] { { 500000000 } }, // hp
             new short[] { 294, 295, 296 }, // outfit
             new short[] { 5, 6, 27, 28, 29, 30, 13, 10, 31, 32, 33, 34, 20, 19, 35, 36, 37, 38 }, // map join
             new int[][] { // skill

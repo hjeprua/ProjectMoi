@@ -36,12 +36,14 @@ public class Service {
         }
         return instance;
     }
+
     public static Service gI() {
         if (instance == null) {
             instance = new Service();
         }
         return instance;
     }
+
     public void sendPlayerDaiHoiVoThuat(Player pVS1, Player pVS2, byte type) {
         Message msg = null;
         try {
@@ -191,23 +193,23 @@ public class Service {
     int test = 0;
 
     public void chat(Player player, String text) {
-        
-             if (text.equals("hskill")) {
-                Service.getInstance().releaseCooldownSkill(player);
-                return;
-            }
-            if (text.equals("skillxd")) {
-                SkillService.gI().learSkillSpecial(player, Skill.LIEN_HOAN_CHUONG);
-                return;
-            }
-            if (text.equals("skilltd")) {
-                SkillService.gI().learSkillSpecial(player, Skill.SUPER_KAME);
-                return;
-            }
-            if (text.equals("skillnm")) {
-                SkillService.gI().learSkillSpecial(player, Skill.MA_PHONG_BA);
-                return;
-            }
+
+        if (text.equals("hskill")) {
+            Service.getInstance().releaseCooldownSkill(player);
+            return;
+        }
+        if (text.equals("skillxd")) {
+            SkillService.gI().learSkillSpecial(player, Skill.LIEN_HOAN_CHUONG);
+            return;
+        }
+        if (text.equals("skilltd")) {
+            SkillService.gI().learSkillSpecial(player, Skill.SUPER_KAME);
+            return;
+        }
+        if (text.equals("skillnm")) {
+            SkillService.gI().learSkillSpecial(player, Skill.MA_PHONG_BA);
+            return;
+        }
         if (player.getSession() != null && player.isAdmin()) {
             if (text.equals("logskill")) {
                 Service.getInstance().sendThongBao(player, player.playerSkill.skillSelect.coolDown + "");
@@ -351,7 +353,8 @@ public class Service {
             if (text.equals("cmd_nro")) {
                 String str = "";
                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ADMIN, -1, "Count NroLord Server. "
-                        + "Số lượng người chơi hiện tại: " + Client.gI().getPlayers().size() + "\n" + str,
+                        + "Số lượng người chơi hiện tại: " + Client.gI().getPlayers().size() + "\n" 
+                        + "Số Thread Hiện Tại" +  Thread.activeCount() + "\n" + str,
                         "Ngọc rồng", "Đệ tử", "Bảo trì", "Tìm kiếm\nngười chơi", "Đóng");
                 return;
 
@@ -371,8 +374,8 @@ public class Service {
                     return;
                 } catch (Exception e) {
                 }
-                }else if (text.equals("item")){
-                        Input.gI().createFormGiveItem(player);
+            } else if (text.equals("item")) {
+                Input.gI().createFormGiveItem(player);
 
             } else if (text.startsWith("m ")) {
                 try {
@@ -533,6 +536,10 @@ public class Service {
             return 80010000000L;
         } else if (sucmanh < 100010000000L) {
             return 100010000000L;
+        } else if (sucmanh < 120010000000L) {
+            return 120010000000L;
+        } else if (sucmanh < 140010000000L) {
+            return 140010000000L;
         }
         return 1000;
     }
@@ -754,8 +761,7 @@ public class Service {
             msg.writer().writeInt((int) player.id);
             if (smallId == 0) {
                 msg.writer().writeByte(0);
-            }
-            else {
+            } else {
                 msg.writer().writeByte(1);
                 msg.writer().writeShort(smallId);
                 msg.writer().writeByte(1);
@@ -800,7 +806,7 @@ public class Service {
             e.printStackTrace();
         }
     }
-    
+
     public String get_HanhTinh(int hanhtinh) {
         switch (hanhtinh) {
             case 0:
@@ -861,7 +867,7 @@ public class Service {
     }
 
     public int getCurrLevel(Player pl) {
-        if(pl.nPoint != null) {
+        if (pl.nPoint != null) {
             long sucmanh = pl.nPoint.power;
             if (sucmanh < 3000) {
                 return 1;
@@ -1126,7 +1132,7 @@ public class Service {
         return type == 9 || type == 10 || type == 34;
     }
 
-    public void useSkillNotFocus(Player pl,Message _msg) {
+    public void useSkillNotFocus(Player pl, Message _msg) {
         SkillService.gI().useSkill(pl, null, null);
     }
 
@@ -1174,8 +1180,8 @@ public class Service {
         return (int) n / tiLeXanhDo;
     }
 
-    public static final int[] flagTempId = { 363, 364, 365, 366, 367, 368, 369, 370, 371, 519, 520, 747 };
-    public static final int[] flagIconId = { 2761, 2330, 2323, 2327, 2326, 2324, 2329, 2328, 2331, 4386, 4385, 2325 };
+    public static final int[] flagTempId = {363, 364, 365, 366, 367, 368, 369, 370, 371, 519, 520, 747};
+    public static final int[] flagIconId = {2761, 2330, 2323, 2327, 2326, 2324, 2329, 2328, 2331, 4386, 4385, 2325};
 
     public void openFlagUI(Player pl) {
         Message msg;
@@ -1265,7 +1271,7 @@ public class Service {
             sendThongBao(pl, "Không thể đổi cờ lúc này!");
             return;
         }
-       if (Util.canDoWithTime(pl.lastTimeChangeFlag, 60000)) {
+        if (Util.canDoWithTime(pl.lastTimeChangeFlag, 60000)) {
             changeFlag(pl, index);
         } else {
             sendThongBao(pl, "Không thể đổi cờ lúc này! Vui lòng đợi " + TimeUtil.getTimeLeft(pl.lastTimeChangeFlag, 60)
@@ -1283,7 +1289,7 @@ public class Service {
             return;
         }
         if (!pl.isAdmin() && (MapService.gI().isMapDoanhTrai(pl.zone.map.mapId)
-                || MapService.gI().isMapBanDoKhoBau(pl.zone.map.mapId)|| MapService.gI().isMapMaBu(pl.zone.map.mapId))) {
+                || MapService.gI().isMapBanDoKhoBau(pl.zone.map.mapId) || MapService.gI().isMapMaBu(pl.zone.map.mapId))) {
             sendThongBaoOK(pl, "Không thể đổi khu vực trong map này");
             return;
         }
@@ -1312,11 +1318,11 @@ public class Service {
             for (Skill skill : pl.playerSkill.skills) {
                 skill.coolDown = 0;
                 msg.writer().writeShort(skill.skillId);
-                    int leftTime = (int) (skill.lastTimeUseThisSkill + skill.coolDown - System.currentTimeMillis());
-                    if (leftTime < 0) {
-                        leftTime = 0;
-                    }
-                    msg.writer().writeInt(leftTime);
+                int leftTime = (int) (skill.lastTimeUseThisSkill + skill.coolDown - System.currentTimeMillis());
+                if (leftTime < 0) {
+                    leftTime = 0;
+                }
+                msg.writer().writeInt(leftTime);
             }
             pl.sendMessage(msg);
             pl.nPoint.setMp(pl.nPoint.mpMax);
@@ -1334,18 +1340,18 @@ public class Service {
             for (Skill skill : pl.playerSkill.skills) {
                 msg.writer().writeShort(skill.skillId);
 
-                    int timeLeft = (int) (skill.lastTimeUseThisSkill + skill.coolDown - System.currentTimeMillis());
-                    if (timeLeft < 0) {
-                        timeLeft = 0;
-                    }
-                    msg.writer().writeInt(timeLeft);
+                int timeLeft = (int) (skill.lastTimeUseThisSkill + skill.coolDown - System.currentTimeMillis());
+                if (timeLeft < 0) {
+                    timeLeft = 0;
+                }
+                msg.writer().writeInt(timeLeft);
             }
             pl.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
         }
     }
-    
+
     public void sendResetSkill(Player pl, short id, int cooldown) {
         Message msg = null;
         try {
@@ -1596,7 +1602,7 @@ public class Service {
         } catch (Exception e) {
         }
     }
-    
+
     public void DropVeTinh(Player pl, Item item, Zone map, int x, int y) {
         ItemMap itemMap = new ItemMap(map, item.template.id, item.quantity, x, y, pl.id);
         itemMap.options = item.itemOptions;

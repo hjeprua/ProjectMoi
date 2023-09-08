@@ -1061,19 +1061,19 @@ public class CombineServiceNew {
             case 0:
                 return 80f;
             case 1:
-                return 50f;
+                return 80f;
             case 2:
-                return 40f;
+                return 80f;
             case 3:
-                return 30f;
+                return 80f;
             case 4:
-                return 10f;
+                return 80f;
             case 5:
-                return 5f;
+                return 80f;
             case 6:
-                return 1f;
+                return 80f;
             case 7:
-                return 0.3f;
+                return 80f;
         }
         return 0;
     }

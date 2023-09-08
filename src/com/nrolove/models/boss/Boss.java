@@ -367,8 +367,7 @@ public abstract class Boss extends Player implements BossInterface {
         if (this.zone != null && mapJoin.length > 1) {
             ChangeMapService.gI().changeMapBySpaceShip(this, this.zone, ChangeMapService.TENNIS_SPACE_SHIP);
             ServerNotify.gI().notify("BOSS " + this.name + " vừa xuất hiện tại " + this.zone.map.mapName);
-            Logger.log("Boss " + this.name + " vừa xuất hiện tại " + "[ " + this.zone.map.mapId + " - "
-                    + this.zone.zoneId + " ]");
+            System.out.println("BOSS " + this.name + " : " + this.zone.map.mapName + " khu vực " + this.zone.zoneId + "(" + this.zone.map.mapId + ")");
         }
     }
 

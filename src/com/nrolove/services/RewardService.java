@@ -1,5 +1,8 @@
 package com.nrolove.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.nrolove.models.Template.ItemLuckyRound;
 import com.nrolove.models.Template.ItemOptionLuckyRound;
 import com.nrolove.models.Template.ItemReward;
@@ -11,13 +14,10 @@ import com.nrolove.models.player.Player;
 import com.nrolove.server.Manager;
 import com.nrolove.server.ServerNotify;
 import com.nrolove.utils.Util;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
- * @author 💖 Trần Lại 💖
- * @copyright 💖 GirlkuN 💖
+ * @author 💖 PuPuBug 💖
  *
  */
 public class RewardService {

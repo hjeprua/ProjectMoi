@@ -67,14 +67,13 @@ public class Zone {
     }
 
     private void udPlayer() {
-        for (int i = this.notBosses.size() - 1; i >= 0; i--) {
+         for (int i = this.notBosses.size() - 1; i >= 0; i--) {
             Player pl = this.notBosses.get(i);
             if (!pl.isPet && !pl.isNewMiniPet) {
                 this.notBosses.get(i).update();
             }
         }
     }
-
     private void udItem() {
         for (int i = this.items.size() - 1; i >= 0; i--) {
             this.items.get(i).update();
@@ -253,7 +252,8 @@ public class Zone {
         if (itemMap != null) {
             if (itemMap.playerId == player.id || itemMap.playerId == -1) {
                 Item item = ItemService.gI().createItemFromItemMap(itemMap);
-                boolean picked = InventoryService.gI().addItemBag(player, item, true);
+                boolean picked=true;
+                 picked = InventoryService.gI().addItemBag(player, item, false);
                 if (picked) {
                     int itemType = item.template.type;
                     Message msg;
@@ -285,7 +285,11 @@ public class Zone {
                                         msg.cleanup();
                                         break;
                                     default:
-                                        msg.writer().writeUTF("Bạn nhặt được " + item.template.name);
+                                        if (item.template.type >= 0 && item.template.type < 5) {
+                                            msg.writer().writeUTF(item.template.name + " ngon ngon...");
+                                        } else {
+                                            msg.writer().writeUTF("Bạn mới nhặt được " + item.template.name);
+                                        }
                                         InventoryService.gI().sendItemBags(player);
                                         break;
                                 }
@@ -365,8 +369,8 @@ public class Zone {
     }
 
     public void load_Another_To_Me(Player player) { // load những player trong map và gửi cho player vào map
-        try {
-            if (this.map.isMapOffline) {
+         try {
+            if (MapService.gI().isMapOffline(this.map.mapId)) {
                 for (Player pl : this.humanoids) {
                     if (pl.id == -player.id) {
                         infoPlayer(player, pl);
@@ -375,7 +379,7 @@ public class Zone {
                 }
             } else {
                 for (Player pl : this.humanoids) {
-                    if (!player.equals(pl)) {
+                    if (pl != null && !player.equals(pl)) {
                         infoPlayer(player, pl);
                     }
                 }

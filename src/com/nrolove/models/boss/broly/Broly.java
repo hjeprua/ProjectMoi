@@ -121,7 +121,7 @@ public class Broly extends Boss {
         if (!this.isDie()) {
             if (plAtt != null) {
                 int skill = plAtt.playerSkill.skillSelect.template.id;
-                if (skill == Skill.KAMEJOKO || skill == Skill.ANTOMIC || skill == Skill.MASENKO || skill == Skill.LIEN_HOAN) {
+                if (skill == Skill.KAMEJOKO || skill == Skill.ANTOMIC || skill == Skill.MASENKO || skill == Skill.LIEN_HOAN || skill == Skill.KAIOKEN || skill == Skill.MAKANKOSAPPO || skill == Skill.TU_SAT || skill == Skill.QUA_CAU_KENH_KHI ) {
                     damage = 1;
                     Service.getInstance().chat(plAtt, "Trời ơi, chưởng hoàn toàn vô hiệu lực với hắn..");
                 } else if (skill == Skill.DRAGON || skill == Skill.DEMON || skill == Skill.GALICK) {
@@ -299,8 +299,8 @@ public class Broly extends Boss {
         }
         int x = Util.nextInt(50, this.zone.map.mapWidth - 50);
         ChangeMapService.gI().changeMap(this, this.zone, x, this.zone.map.yPhysicInTop(x, 0));
-        ServerNotify.gI().notify("Boss " + this.name + " vừa xuất hiện tại " + this.zone.map.mapName + "");
-        Logger.log("Boss " + this.name + " vừa xuất hiện tại " + "[ " + this.zone.map.mapId + " - " +this.zone.zoneId+ " ]");
+        ServerNotify.gI().notify("BOSS " + this.name + " vừa xuất hiện tại " + this.zone.map.mapName + "");
+        System.out.println("BOSS " + this.name + " : " + this.zone.map.mapName + " khu vực " + this.zone.zoneId + "(" + this.zone.map.mapId + ")");
     }
 
     @Override

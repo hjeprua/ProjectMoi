@@ -687,7 +687,7 @@ public class ChangeMapService {
                 case 109: //rừng băng
                 case 110: //hang băng
 //                    if (TaskService.gI().getIdTask(player) < ConstTask.TASK_21_4) {
-                    if (TaskService.gI().getIdTask(player) < ConstTask.TASK_21_1) {
+                    if (TaskService.gI().getIdTask(player) < ConstTask.TASK_23_4) {
                         return null;
                     }
                     break;

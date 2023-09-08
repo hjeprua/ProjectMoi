@@ -1,9 +1,7 @@
 package com.nrolove.models.map;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.nrolove.consts.ConstMap;
+import com.nrolove.data.DataGame;
 import com.nrolove.models.Template;
 import com.nrolove.models.boss.Boss;
 import com.nrolove.models.boss.BossFactory;
@@ -19,6 +17,8 @@ import com.nrolove.server.Manager;
 import com.nrolove.services.Service;
 import com.nrolove.utils.Logger;
 import com.nrolove.utils.Util;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -116,13 +116,12 @@ public class Map implements Runnable {
                     zone.update();
                 }
                 long timeDo = System.currentTimeMillis() - st;
-                Thread.sleep(Math.max(0, 5000 - timeDo));
+                Thread.sleep(Math.abs(1000 - timeDo));
             } catch (Exception e) {
-                Logger.logException(Map.class, e, "Lỗi update map " + this.mapName);
+      //          Logger.logException(Map.class, e, "Lỗi update map " + this.mapName);
             }
         }
     }
-
     public void initMob(byte[] mobTemp, byte[] mobLevel, int[] mobHp, short[] mobX, short[] mobY) {
         for (int i = 0; i < mobTemp.length; i++) {
             int mobTempId = mobTemp[i];

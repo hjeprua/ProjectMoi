@@ -23,10 +23,10 @@ public class ItemMapService {
         return i;
     }
 
-    public void pickItem(Player player, int itemMapId) {
-        if (Util.canDoWithTime(player.lastTimePickItem, 1000)) {
+    public void pickItem(Player player, int itemMapId, boolean isThuHut) {
+        if (isThuHut || Util.canDoWithTime(player.lastTimePickItem, 1000)) {
             player.zone.pickItem(player, itemMapId);
-            player.lastTimePickItem = System.currentTimeMillis();
+            player.lastTimePickItem =(System.currentTimeMillis());
         }
     }
 

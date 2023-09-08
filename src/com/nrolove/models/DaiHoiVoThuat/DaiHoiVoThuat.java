@@ -89,6 +89,10 @@ public class DaiHoiVoThuat {
                     break;
                 }
             }
+            if(zone == null) {
+                Service.getInstance().sendThongBao(player, "Đợi Người Trên Đấu Xong");  
+                return;
+            }
             ChangeMapService.gI().changeMap(player, 129, zone.zoneId, 360, 360);
         } else {
             this.player.zone.isZoneDaiHoiVoThuat = true;

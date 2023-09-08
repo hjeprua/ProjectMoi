@@ -161,7 +161,7 @@ public class Mob {
                 Message msg = new Message(102);
                 msg.writer().writeByte(5);
                 msg.writer().writeShort(this.zone.getPlayers().get(0).location.x);
-                Service.getInstance().sendMessAllPlayerInMap(zone, msg);
+                Service.gI().sendMessAllPlayerInMap(zone, msg);
                 msg.cleanup();
             } catch (Exception e) {
             }
@@ -185,6 +185,7 @@ public class Mob {
             Player pl = getPlayerCanAttack();
             if (pl != null) {
                 MobService.gI().mobAttackPlayer(this, pl);
+//                this.mobAttackPlayer(pl);
             }
             this.lastTimeAttackPlayer = System.currentTimeMillis();
         }

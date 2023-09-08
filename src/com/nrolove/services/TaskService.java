@@ -33,7 +33,7 @@ public class TaskService {
     /**
      * Làm cùng số người trong bang
      */
-    private static final byte NMEMBER_DO_TASK_TOGETHER = 2;
+    private static final byte NMEMBER_DO_TASK_TOGETHER = 0;
 
     private static com.nrolove.services.TaskService i;
 

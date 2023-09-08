@@ -149,6 +149,9 @@ public class EffectSkillService {
     //Thái dương hạ san &&&&****************************************************
     //player ăn choáng thái dương hạ san
     public void startStun(Player player, long lastTimeStartBlind, int timeBlind) {
+        if(player.effectSkill == null){
+            return;
+        } 
         player.effectSkill.lastTimeStartStun = lastTimeStartBlind;
         player.effectSkill.timeStun = timeBlind;
         player.effectSkill.isStun = true;

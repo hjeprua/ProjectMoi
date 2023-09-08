@@ -604,6 +604,8 @@ public class Manager {
                                     mobReward.foods.add(itemReward);
                                 } else if (itemReward.tempId == 590) {
                                     mobReward.biKieps.add(itemReward);
+                                    } else if (itemReward.tempId >= 1066 && itemReward.tempId <= 1069) {
+                                    mobReward.thiensus.add(itemReward);
 //                                } else if (itemReward.tempId == 399) {
 //                                    mobReward.events.add(itemReward);
                                 } else {

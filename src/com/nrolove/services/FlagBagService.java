@@ -9,8 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author 💖 Trần Lại 💖
- * @copyright 💖 GirlkuN 💖
+ * @author 💖 PuPuBug 💖
  *
  */
 public class FlagBagService {

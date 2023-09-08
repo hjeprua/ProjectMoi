@@ -159,7 +159,7 @@ public class UseItem {
                     break;
             }
         } catch (Exception e) {
-            Logger.logException(UseItem.class, e);
+     //       Logger.logException(UseItem.class, e);
         }
     }
 
@@ -874,8 +874,14 @@ public class UseItem {
     }
 
     public void choseMapCapsule(Player pl, int index) {
+        if (index < 0) {
+            Service.getInstance().sendThongBao(pl, "Không thể thực hiện");
+            return;
+        }
         int zoneId = -1;
         Zone zoneChose = pl.mapCapsule.get(index);
+        //Kiểm tra số lượng người trong khu
+
         if (zoneChose.getNumOfPlayers() > 25
                 || MapService.gI().isMapDoanhTrai(zoneChose.map.mapId)
                 || MapService.gI().isMapMaBu(zoneChose.map.mapId)) {
@@ -892,7 +898,6 @@ public class UseItem {
         }
         ChangeMapService.gI().changeMapBySpaceShip(pl, pl.mapCapsule.get(index).map.mapId, zoneId, -1);
     }
-
     private void upSkillPet(Player pl, Item item) {
         if (pl.pet == null) {
             Service.getInstance().sendThongBao(pl, "Không thể thực hiện");

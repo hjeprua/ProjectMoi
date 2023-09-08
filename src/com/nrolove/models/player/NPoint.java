@@ -27,7 +27,7 @@ import com.nrolove.utils.Util;
  */
 public class NPoint {
 
-    public static final byte MAX_LIMIT = 9;
+    public static final byte MAX_LIMIT = 11;
 
     private Player player;
 
@@ -303,7 +303,10 @@ public class NPoint {
     }
 
     private void setDameTrainArmor() {
-        if (!this.player.isPet && !this.player.isBoss ) {
+        if (!this.player.isPet && !this.player.isBoss) {
+            if (this.player.inventory.itemsBody.size() < 7) {
+                return;
+            }
             try {
                 Item gtl = this.player.inventory.itemsBody.get(6);
                 if (gtl.isNotNullItem()) {
@@ -453,7 +456,6 @@ public class NPoint {
         if (this.player.zone != null && MapService.gI().isMapBlackBallWar(this.player.zone.map.mapId)) {
             this.mpMax *= this.player.effectSkin.xHPKI;
         }
-        
     }
 
     private void setMp() {
@@ -478,7 +480,7 @@ public class NPoint {
             this.dame += ((long) this.dame * 20 / 100);
         }
         //thức ăn
-        if (!this.player.isPet&& this.player.itemTime.isEatMeal
+        if (!this.player.isPet && this.player.itemTime.isEatMeal
                 || this.player.isPet && ((Pet) this.player).master.itemTime.isEatMeal) {
             this.dame += ((long) this.dame * 10 / 100);
         }
@@ -709,7 +711,7 @@ public class NPoint {
         }
         if (isCrit) {
             dameAttack *= 2;
-            for(Integer tl : this.tlDameCrit){
+            for (Integer tl : this.tlDameCrit) {
                 dameAttack += (dameAttack * tl / 100);
             }
         }
@@ -861,6 +863,10 @@ public class NPoint {
                 return 100999999999L;
             case 9:
                 return 120999999999L;
+            case 10:
+                return 140999999999L;
+            case 11:
+                return 179999999999L;
             default:
                 return 0;
         }
@@ -888,6 +894,10 @@ public class NPoint {
                 return 100999999999L;
             case 9:
                 return 120999999999L;
+            case 10:
+                return 140999999999L;
+            case 11:
+                return 179999999999L;
             default:
                 return 0;
         }
@@ -924,6 +934,12 @@ public class NPoint {
         if (limitPower == 9) {
             return 650000;
         }
+        if (limitPower == 10) {
+            return 680000;
+        }
+        if (limitPower == 11) {
+            return 700000;
+        }
         return 0;
     }
 
@@ -957,6 +973,12 @@ public class NPoint {
         }
         if (limitPower == 9) {
             return 32000;
+        }
+        if (limitPower == 10) {
+            return 33000;
+        }
+        if (limitPower == 11) {
+            return 34000;
         }
         return 0;
     }
@@ -992,6 +1014,12 @@ public class NPoint {
         if (limitPower == 9) {
             return 1800;
         }
+        if (limitPower == 10) {
+            return 1900;
+        }
+        if (limitPower == 11) {
+            return 2000;
+        }
         return 0;
     }
 
@@ -1024,6 +1052,12 @@ public class NPoint {
             return 10;
         }
         if (limitPower == 9) {
+            return 10;
+        }
+        if (limitPower == 10) {
+            return 10;
+        }
+        if (limitPower == 11) {
             return 10;
         }
         return 0;

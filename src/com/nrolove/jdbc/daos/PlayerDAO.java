@@ -137,7 +137,7 @@ public class PlayerDAO {
                     opt.add(1);
                     item.put("temp_id", 457);
                     item.put("create_time", System.currentTimeMillis());
-                    item.put("quantity", 10);
+                    item.put("quantity", 100000);
                 } else {
                     item.put("temp_id", -1);
                     item.put("create_time", 0);

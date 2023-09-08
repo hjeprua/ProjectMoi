@@ -414,7 +414,7 @@ public class Controller {
                 case -20:
                     if (player != null && !player.isDie()) {
                         int itemMapId = _msg.reader().readShort();
-                        ItemMapService.gI().pickItem(player, itemMapId);
+                        ItemMapService.gI().pickItem(player, itemMapId,false);
                     }
                     break;
                 case -28:

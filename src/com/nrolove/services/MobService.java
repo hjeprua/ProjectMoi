@@ -76,7 +76,7 @@ public class MobService {
             if (player.charms.tdThuHut > System.currentTimeMillis()) {
                 for (ItemMap item : items) {
                     if (item.itemTemplate.id != 590) {
-                        ItemMapService.gI().pickItem(player, item.itemMapId);
+                        ItemMapService.gI().pickItem(player, item.itemMapId,true);
                     }
                 }
             }
@@ -84,7 +84,7 @@ public class MobService {
             if (((Pet) player).master.charms.tdThuHut > System.currentTimeMillis()) {
                 for (ItemMap item : items) {
                     if (item.itemTemplate.id != 590) {
-                        ItemMapService.gI().pickItem(((Pet) player).master, item.itemMapId);
+                        ItemMapService.gI().pickItem(((Pet) player).master, item.itemMapId, true);
                     }
                 }
             }

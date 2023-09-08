@@ -18,6 +18,7 @@ import com.nrolove.services.PlayerService;
 import com.nrolove.services.Service;
 import com.nrolove.utils.Logger;
 import com.nrolove.utils.Util;
+import java.util.List;
 
 /**
  *
@@ -488,8 +489,12 @@ public void openShopHongNgoc(Player player, int shopId, int order) {
         }
     }
 
-    private void getItemSideBoxLuckyRound(Player player, byte type, int index) {
-        Item item = player.inventory.itemsBoxCrackBall.get(index);
+    private void getItemSideBoxLuckyRound(Player player, List<Item> items, byte type, int index) {
+        if (index < 0) {
+            Service.getInstance().sendThongBao(player, "Không thể thực hiện");
+            return;
+        }
+        Item item = items.get(index);
         switch (type) {
             case 0: // nhận
                 if (item.isNotNullItem()) {
@@ -630,7 +635,7 @@ public void openShopHongNgoc(Player player, int shopId, int order) {
     public void buyItem(Player player, byte type, int tempId) {
         switch (player.iDMark.getShopId()) {
             case ConstNpc.SIDE_BOX_LUCKY_ROUND:
-                getItemSideBoxLuckyRound(player, type, tempId);
+            getItemSideBoxLuckyRound(player, player.inventory.itemsBoxCrackBall, type, tempId);
                 break;
             case ConstNpc.SIDE_BOX_ITEM_REWARD:
                 getItemSideBoxReward(player, type, tempId);
@@ -642,6 +647,9 @@ public void openShopHongNgoc(Player player, int shopId, int order) {
     }
 
     public void showConfirmSellItem(Player pl, int where, int index) {
+        if (index == 2 || index == 1) {
+            return;
+        }
         Item item = null;
         if (where == 0) {
             item = pl.inventory.itemsBody.get(index);
