@@ -44,6 +44,10 @@ public class Logger {
         System.out.print(BLUE + text + RESET);
     }
 
+    public static void login(String text) {
+        System.out.print(PURPLE + text + RESET);
+    }
+
     /**
      * Note: System.out.print
      */

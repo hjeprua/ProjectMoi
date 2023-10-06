@@ -388,7 +388,11 @@ public class Player {
                     return idOutfitFusion[3 + this.gender][0];
                 }
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 1][0];
-            }
+                    } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
+//                if (this.pet.typePet == 1) {
+//                    return idOutfitFusion[3 + this.gender][0];
+                    }
+            return idOutfitFusion[3 + this.gender][0];
         } else if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
             int head = inventory.itemsBody.get(5).template.head;
             if (head != -1) {
@@ -411,6 +415,11 @@ public class Player {
                     return idOutfitFusion[3 + this.gender][1];
                 }
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 1][1];
+            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
+//                if (this.pet.typePet == 1) {
+//                    return idOutfitFusion[3 + this.gender][1];
+//                }
+                return idOutfitFusion[3 + this.gender][1];
             }
         } else if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
             int body = inventory.itemsBody.get(5).template.body;
@@ -437,6 +446,11 @@ public class Player {
                     return idOutfitFusion[3 + this.gender][2];
                 }
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 1][2];
+                } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
+//                if (this.pet.typePet == 1) {
+//                    return idOutfitFusion[3 + this.gender][2];
+//                }
+                return idOutfitFusion[3 + this.gender][2];
             }
         } else if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
             int leg = inventory.itemsBody.get(5).template.leg;
@@ -456,70 +470,12 @@ public class Player {
         } else if (this.isHoldNamecBall) {
             return 30;
         }
-        if(isPl()) {
-            if (inventory.itemsBag.get(8) != null) {
-                if (inventory != null && inventory.itemsBody.get(8).isNotNullItem()) {
-                    Item item = inventory.itemsBody.get(8);
-                    switch (item.template.id) {
-                        case 954:
-                            return 54;
-                        case 955:
-                            return 55;
-                        case 966:
-                            return 56;
-                        case 467:
-                            return 32;
-                        case 468:
-                            return 33;
-                        case 469:
-                            return 34;
-                        case 470:
-                            return 35;
-                        case 982:
-                            return 57;
-                        case 471:
-                            return 36;
-                        case 983:
-                            return 58;
-                        case 994:
-                            return 60;
-                        case 995:
-                            return 61;
-                        case 740:
-                            return 37;
-                        case 996:
-                            return 62;
-                        case 741:
-                            return 38;
-                        case 997:
-                            return 63;
-                        case 998:
-                            return 64;
-                        case 999:
-                            return 65;
-                        case 1000:
-                            return 66;
-                        case 745:
-                            return 39;
-                        case 1001:
-                            return 67;
-                        case 1007:
-                            return 68;
-                        case 1013:
-                            return 69;
-                        case 1021:
-                            return 70;
-                        case 766:
-                            return 0;
-                        case 1022:
-                            return 71;
-                        case 767:
-                            return 1;
-                        case 1023:
-                            return 72;
-
-                    }
-                    return inventory.itemsBody.get(8).template.part;
+        if (this.inventory.itemsBody.size() == 11) {
+            if (this.inventory.itemsBody.get(8).isNotNullItem()) {
+                if (this.inventory.itemsBody.get(8).template.id == (1101)){
+                    return 205;
+               } else {
+                    return this.inventory.itemsBody.get(8).template.part;
                 }
             }
         }

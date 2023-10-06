@@ -283,7 +283,7 @@ public class Session {
                     //-31 data item background
                     DataGame.sendDataItemBG(this);
                     controller.sendInfo(this);
-                    Logger.warning("Player " + this.player.name + " Login thành công. Time: " + (System.currentTimeMillis() - st) + " ms\n");
+                    Logger.login("Login usename " + this.userId  );
                 }
             } catch (Exception e) {
                 if (player != null) {

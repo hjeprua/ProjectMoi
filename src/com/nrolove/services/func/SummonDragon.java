@@ -280,7 +280,7 @@ public class SummonDragon {
         switch (this.menuShenron) {
             case ConstNpc.SHENRON_1_1:
                 switch (this.select) {
-                    case 0: //20 tr vàng
+                   case 0: //20 tr vàng
                         this.playerSummonShenron.inventory.gold = 2000000000;
                         PlayerService.gI().sendInfoHpMpMoney(this.playerSummonShenron);
                         break;

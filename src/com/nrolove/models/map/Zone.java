@@ -67,18 +67,22 @@ public class Zone {
     }
 
     private void udPlayer() {
-         for (int i = this.notBosses.size() - 1; i >= 0; i--) {
-            Player pl = this.notBosses.get(i);
+        List<Player> playerUpdate = new ArrayList<Player>(this.notBosses);
+        for (int i = playerUpdate.size() - 1; i >= 0; i--) {
+            Player pl = playerUpdate.get(i);
             if (!pl.isPet && !pl.isNewMiniPet) {
                 this.notBosses.get(i).update();
             }
         }
     }
+
     private void udItem() {
-        for (int i = this.items.size() - 1; i >= 0; i--) {
-            this.items.get(i).update();
+        List<ItemMap> itemsUpdate = new ArrayList<ItemMap>(this.items);
+        for (int i = itemsUpdate.size() - 1; i >= 0; i--) {
+            itemsUpdate.get(i).update();
         }
     }
+
     public void update() {
         udMob();
         udPlayer();
@@ -136,7 +140,7 @@ public class Zone {
             if (!player.isBoss && !this.notBosses.contains(player)) {
                 this.notBosses.add(player);
             }
-            if (!player.isBoss && !player.isPet && !player.isNewMiniPet&& !this.players.contains(player)) {
+            if (!player.isBoss && !player.isPet && !player.isNewMiniPet && !this.players.contains(player)) {
                 this.players.add(player);
             }
             if (player.isBoss) {
@@ -177,16 +181,16 @@ public class Zone {
     public List<ItemMap> getItemMapsForPlayer(Player player) {
         List<ItemMap> list = new ArrayList<>();
         for (ItemMap item : items) {
-                if (item.itemTemplate.id == 78) {
-                    if (TaskService.gI().getIdTask(player) != ConstTask.TASK_3_1) {
-                        continue;
-                    }
+            if (item.itemTemplate.id == 78) {
+                if (TaskService.gI().getIdTask(player) != ConstTask.TASK_3_1) {
+                    continue;
                 }
-                if (item.itemTemplate.id == 74) {
-                    if (TaskService.gI().getIdTask(player) < ConstTask.TASK_3_0) {
-                        continue;
-                    }
+            }
+            if (item.itemTemplate.id == 74) {
+                if (TaskService.gI().getIdTask(player) < ConstTask.TASK_3_0) {
+                    continue;
                 }
+            }
             list.add(item);
         }
         return list;
@@ -252,8 +256,8 @@ public class Zone {
         if (itemMap != null) {
             if (itemMap.playerId == player.id || itemMap.playerId == -1) {
                 Item item = ItemService.gI().createItemFromItemMap(itemMap);
-                boolean picked=true;
-                 picked = InventoryService.gI().addItemBag(player, item, false);
+                boolean picked = true;
+                picked = InventoryService.gI().addItemBag(player, item, false);
                 if (picked) {
                     int itemType = item.template.type;
                     Message msg;
@@ -356,7 +360,8 @@ public class Zone {
                         infoPlayer(((Pet) player).master, player);
                     }
                 } else {
-                    for (Player pl : this.players) {
+                    List<Player> playerUpdate = new ArrayList<Player>(this.players);
+                    for (Player pl : playerUpdate) {
                         if (!player.equals(pl)) {
                             infoPlayer(pl, player);
                         }
@@ -369,16 +374,17 @@ public class Zone {
     }
 
     public void load_Another_To_Me(Player player) { // load những player trong map và gửi cho player vào map
-         try {
+        try {
+            List<Player> playerUpdate = new ArrayList<Player>(this.humanoids);
             if (MapService.gI().isMapOffline(this.map.mapId)) {
-                for (Player pl : this.humanoids) {
+                for (Player pl : playerUpdate) {
                     if (pl.id == -player.id) {
                         infoPlayer(player, pl);
                         break;
                     }
                 }
             } else {
-                for (Player pl : this.humanoids) {
+                for (Player pl : playerUpdate) {
                     if (pl != null && !player.equals(pl)) {
                         infoPlayer(player, pl);
                     }
@@ -439,7 +445,7 @@ public class Zone {
             Logger.logException(MapService.class, e);
         }
         Service.getInstance().sendFlagPlayerToMe(plReceive, plInfo);
-        if (!plInfo.isBoss && !plInfo.isPet &&!plInfo.isNewMiniPet) {
+        if (!plInfo.isBoss && !plInfo.isPet && !plInfo.isNewMiniPet) {
             Service.gI().sendPetFollowToMe(plReceive, plInfo);
         }
 

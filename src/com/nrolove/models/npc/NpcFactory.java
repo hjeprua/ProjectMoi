@@ -134,13 +134,12 @@ public class NpcFactory {
                                             break;
                                         case 4:
                                             if (player.clan != null) {
-                                                if (player.getSession().player.nPoint.power >= 80000000000L) {
-
-                                                    ChangeMapService.gI().changeMapBySpaceShip(player, 156, -1, 432);
-                                                } else {
                                                 Service.getInstance().sendThongBao(player,
                                                         "Cần Đạt 80 tỷ.");
                                             }
+                                            if (player.getSession().player.nPoint.power >= 80000000000L) {
+
+                                                ChangeMapService.gI().changeMapBySpaceShip(player, 156, -1, 432);
                                                 break; // qua lanh dia
                                             }
                                     }
@@ -797,7 +796,7 @@ public class NpcFactory {
                                             "Ngươi tìm ta có việc gì?",
                                             "Cửa hàng\nBùa", "Nâng cấp\nVật phẩm",
                                             "Nâng cấp\nBông tai\nPorata", "Làm phép\nNhập đá",
-                                            "Nhập\nNgọc Rồng");
+                                            "Nhập\nNgọc Rồng", "Nâng cấp\nChỉ Số\nPorata");
                                 }
                             }
                         }
@@ -892,7 +891,9 @@ public class NpcFactory {
 //                                                CombineService.gI().openTabCombine(player, CombineService.NHAP_NGOC_RONG);
                                                 CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.NHAP_NGOC_RONG);
                                                 break;
-
+                                            case 5:
+                                                CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.MO_CHI_SO_BONG_TAI);
+                                                break;
                                         }
                                     } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_OPTION_SHOP_BUA) {
                                         switch (select) {

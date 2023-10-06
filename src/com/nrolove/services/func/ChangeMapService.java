@@ -23,6 +23,8 @@ import com.nrolove.services.PlayerService;
 import com.nrolove.services.TaskService;
 import com.nrolove.utils.Logger;
 import com.nrolove.utils.TimeUtil;
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -569,8 +571,11 @@ public class ChangeMapService {
             }
         }
         if (TimeUtil.getCurrHour() % 2 == 0 && zoneJoin != null) {
-            for (Player b : zoneJoin.getBosses()) {
-                if ((b.id == BossFactory.KUKU && TaskService.gI().getIdTask(player) != ConstTask.TASK_19_0)
+            List<Player> bosses = new ArrayList<Player>(zoneJoin.getBosses());
+            for (Player b : bosses) {
+                if (b == null) {
+                    zoneJoin.getBosses().remove(b);
+                } else if ((b.id == BossFactory.KUKU && TaskService.gI().getIdTask(player) != ConstTask.TASK_19_0)
                         || (b.id == BossFactory.MAP_DAU_DINH && TaskService.gI().getIdTask(player) != ConstTask.TASK_19_1)
                         || (b.id == BossFactory.RAMBO && TaskService.gI().getIdTask(player) != ConstTask.TASK_19_2)
                         || ((b.id == BossFactory.TIEU_DOI_TRUONG || b.id == BossFactory.SO1

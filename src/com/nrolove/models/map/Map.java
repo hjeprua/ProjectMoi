@@ -111,17 +111,31 @@ public class Map implements Runnable {
     public void run() {
         while (true) {
             try {
-                long st = System.currentTimeMillis();
-                for (Zone zone : this.zones) {
-                    zone.update();
-                }
-                long timeDo = System.currentTimeMillis() - st;
-                Thread.sleep(Math.abs(1000 - timeDo));
+                long startTime = System.currentTimeMillis();
+            
+            // Thực hiện cập nhật cho từng Zone
+            for (Zone zone : this.zones) {
+                zone.update();
+            }
+            
+            long elapsedTime = System.currentTimeMillis() - startTime;
+            
+            // Tính thời gian chờ cần thiết để đảm bảo chu kỳ chạy là 1 giây
+            long waitTime = 1000 - elapsedTime;
+            if (waitTime > 0) {
+                Thread.sleep(waitTime);
+            }
+            } catch (InterruptedException e) {
+            // Xử lý ngoại lệ khi thread bị gián đoạn
+            // ...
             } catch (Exception e) {
-      //          Logger.logException(Map.class, e, "Lỗi update map " + this.mapName);
+            // Xử lý ngoại lệ (exception) khác
+            // ...
+            Logger.logException(Map.class, e, "Lỗi update map " + this.mapName);
             }
         }
     }
+
     public void initMob(byte[] mobTemp, byte[] mobLevel, int[] mobHp, short[] mobX, short[] mobY) {
         for (int i = 0; i < mobTemp.length; i++) {
             int mobTempId = mobTemp[i];

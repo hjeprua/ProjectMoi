@@ -1021,6 +1021,14 @@ public class Service {
     public void sendFlagBag(Player pl) {
         Message msg;
         try {
+//            int flagbag = pl.getFlagBag() ;
+//            if (pl.isPl() && pl.getSession().version >= 228) {
+//                switch (flagbag) {
+//                    case 74:
+//                        flagbag = 205 ;
+//                        break;
+//                }
+//            }
             msg = new Message(-64);
             msg.writer().writeInt((int) pl.id);
             msg.writer().writeByte(pl.getFlagBag());

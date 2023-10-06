@@ -60,10 +60,13 @@ public class UseItem {
 
     public void getItem(Session session, Message msg) {
         Player player = session.player;
-        TransactionService.gI().cancelTrade(player);
+                TransactionService.gI().cancelTrade(player);
         try {
             int type = msg.reader().readByte();
             int index = msg.reader().readByte();
+            if (index == -1) {
+                return;
+            }
             switch (type) {
                 case ITEM_BOX_TO_BODY_OR_BAG:
                     InventoryService.gI().itemBoxToBodyOrBag(player, index);
@@ -93,7 +96,7 @@ public class UseItem {
                 player.pet.setClothes.setup();
             }
             player.setClanMember();
-            Service.getInstance().point(player);
+            Service.gI().point(player);
         } catch (Exception e) {
             Logger.logException(UseItem.class, e);
 
@@ -159,7 +162,7 @@ public class UseItem {
                     break;
             }
         } catch (Exception e) {
-     //       Logger.logException(UseItem.class, e);
+            //       Logger.logException(UseItem.class, e);
         }
     }
 
@@ -282,6 +285,9 @@ public class UseItem {
                             break;
                         case 736:
                             openSPL(pl, item);
+                            break;
+                        case 921: //bông tai c2
+                            UseItem.gI().usePorata2(pl);
                             break;
                         case 397:
                             Service.getInstance().sendThongBaoOK(pl, "Đồ này đã bị thu hồi không thể sử dụng.");
@@ -447,7 +453,7 @@ public class UseItem {
             Item newItem = ItemService.gI().createNewItem(possibleItems[selectedIndex]);
             newItem.itemOptions.add(new ItemOption(73, 0));
             newItem.quantity = (short) Util.nextInt(1, 10);
-            InventoryService.gI().addItemBag(player, newItem,false);
+            InventoryService.gI().addItemBag(player, newItem, false);
             icon[1] = newItem.template.iconID;
 
             InventoryService.gI().subQuantityItemsBag(player, item, 1);
@@ -461,9 +467,9 @@ public class UseItem {
 
     private void openbox2010(Player pl, Item item) {
         if (InventoryService.gI().getCountEmptyBag(pl) > 0) {
-            short[] temp = { 17, 16, 15, 675, 676, 677, 678, 679, 680, 681, 580, 581, 582
+            short[] temp = {17, 16, 15, 675, 676, 677, 678, 679, 680, 681, 580, 581, 582
             };
-            int[][] gold = { { 5000, 20000 } };
+            int[][] gold = {{5000, 20000}};
             byte index = (byte) Util.nextInt(0, temp.length - 1);
             short[] icon = new short[2];
             icon[0] = item.template.iconID;
@@ -505,9 +511,9 @@ public class UseItem {
 
     private void openboxsukien(Player pl, Item item) {
         if (InventoryService.gI().getCountEmptyBag(pl) > 0) {
-            short[] temp = { 16, 15, 865, 999, 1000, 1001, 739, 742, 743
+            short[] temp = {16, 15, 865, 999, 1000, 1001, 739, 742, 743
             };
-            int[][] gold = { { 5000, 20000 } };
+            int[][] gold = {{5000, 20000}};
             byte index = (byte) Util.nextInt(0, temp.length - 1);
             short[] icon = new short[2];
             icon[0] = item.template.iconID;
@@ -599,11 +605,11 @@ public class UseItem {
 
     private void openboxkichhoat(Player pl, Item item) {
         if (InventoryService.gI().getCountEmptyBag(pl) > 0) {
-            short[] temp = { 76, 188, 189, 190, 441, 442, 447,
-                    2010, 2009, 865, 938, 939, 940, 16, 17, 18, 19, 20,
-                    946, 947, 948, 382, 383, 384, 385
+            short[] temp = {76, 188, 189, 190, 441, 442, 447,
+                2010, 2009, 865, 938, 939, 940, 16, 17, 18, 19, 20,
+                946, 947, 948, 382, 383, 384, 385
             };
-            int[][] gold = { { 5000, 20000 } };
+            int[][] gold = {{5000, 20000}};
             byte index = (byte) Util.nextInt(0, temp.length - 1);
             short[] icon = new short[2];
             icon[0] = item.template.iconID;
@@ -706,8 +712,8 @@ public class UseItem {
 
     private void openCSKB(Player pl, Item item) {
         if (InventoryService.gI().getCountEmptyBag(pl) > 0) {
-            short[] temp = { 76, 188, 189, 190, 381, 382, 383, 384, 385 };
-            int[][] gold = { { 5000, 20000 } };
+            short[] temp = {76, 188, 189, 190, 381, 382, 383, 384, 385};
+            int[][] gold = {{5000, 20000}};
             byte index = (byte) Util.nextInt(0, temp.length - 1);
             short[] icon = new short[2];
             icon[0] = item.template.iconID;
@@ -867,6 +873,18 @@ public class UseItem {
             }
         }
     }
+    
+    private void usePorata2(Player pl) {
+        if (pl.pet == null || pl.fusion.typeFusion == 4 || pl.fusion.typeFusion == 6 || pl.fusion.typeFusion == 10 || pl.fusion.typeFusion == 12) {
+            Service.getInstance().sendThongBao(pl, "Không thể thực hiện");
+        } else {
+            if (pl.fusion.typeFusion == ConstPlayer.NON_FUSION) {
+                pl.pet.fusion2(true);
+            } else {
+                pl.pet.unFusion();
+            }
+        }
+    }
 
     private void openCapsuleUI(Player pl) {
         pl.iDMark.setTypeChangeMap(ConstMap.CHANGE_CAPSULE);
@@ -898,6 +916,7 @@ public class UseItem {
         }
         ChangeMapService.gI().changeMapBySpaceShip(pl, pl.mapCapsule.get(index).map.mapId, zoneId, -1);
     }
+
     private void upSkillPet(Player pl, Item item) {
         if (pl.pet == null) {
             Service.getInstance().sendThongBao(pl, "Không thể thực hiện");
