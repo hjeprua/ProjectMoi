@@ -40,12 +40,18 @@ public class Maintenance extends Thread {
     public void run() {
         while (this.min > 0) {
             this.min--;
-            Service.getInstance().sendThongBaoAllPlayer("Hệ thống sẽ bảo trì sau " + min
+            if(this.min < 60){
+            Service.gI().sendThongBaoAllPlayer("Hệ thống sẽ bảo trì sau " + min
                     + " giây nữa, vui lòng thoát game để tránh mất vật phẩm");
+            }else{
+                Service.gI().sendThongBaoAllPlayer("Hệ thống sẽ bảo trì sau " + min/60
+                    + " phút nữa, vui lòng thoát game để tránh mất vật phẩm");
+            }
             try {
                 Thread.sleep(1000);
             } catch (Exception e) {
             }
+          
         }
         Logger.error("BEGIN MAINTENANCE...............................\n");
         ServerManager.gI().close(100);

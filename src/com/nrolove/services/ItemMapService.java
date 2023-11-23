@@ -56,8 +56,4 @@ public class ItemMapService {
     public boolean isBlackBall(int tempId) {
         return tempId >= 372 && tempId <= 378;
     }
-
-    public boolean isNamecBall(int tempId) {
-        return tempId >= 353 && tempId <= 360;
-    }
 }

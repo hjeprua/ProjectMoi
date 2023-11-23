@@ -41,7 +41,6 @@ public class ItemMap {
         this.createTime = System.currentTimeMillis();
         this.options = new ArrayList<>();
         this.isBlackBall = ItemMapService.gI().isBlackBall(this.itemTemplate.id);
-        this.isNamecBall = ItemMapService.gI().isNamecBall(this.itemTemplate.id);
         this.lastTimeMoveToPlayer = System.currentTimeMillis();
         this.zone.addItem(this);
     }

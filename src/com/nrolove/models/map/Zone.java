@@ -257,7 +257,7 @@ public class Zone {
             if (itemMap.playerId == player.id || itemMap.playerId == -1) {
                 Item item = ItemService.gI().createItemFromItemMap(itemMap);
                 boolean picked = true;
-                picked = InventoryService.gI().addItemBag(player, item, false);
+                    picked = InventoryService.gI().addItemBag(player, item,false);
                 if (picked) {
                     int itemType = item.template.type;
                     Message msg;
@@ -280,7 +280,7 @@ public class Zone {
                                         msg.cleanup();
                                         break;
                                     case 74:
-                                        msg.writer().writeUTF("Bạn vừa ăn " + item.template.name);
+                                        msg.writer().writeUTF("Bạn mới vừa ăn " + item.template.name);
                                         break;
                                     case 78:
                                         msg.writer().writeUTF("Wow, một cậu bé dễ thương!");
@@ -290,7 +290,7 @@ public class Zone {
                                         break;
                                     default:
                                         if (item.template.type >= 0 && item.template.type < 5) {
-                                            msg.writer().writeUTF(item.template.name + " ngon ngon...");
+
                                         } else {
                                             msg.writer().writeUTF("Bạn mới nhặt được " + item.template.name);
                                         }
