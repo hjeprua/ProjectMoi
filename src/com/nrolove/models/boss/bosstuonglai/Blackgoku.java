@@ -98,7 +98,7 @@ public class Blackgoku extends Boss {
                     }
                     this.effectCharger();
                     try {
-                        SkillService.gI().useSkill(this, pl, null);
+                        SkillService.gI().useSkill(this, pl, null ,null );
                     } catch (Exception e) {
                         Logger.logException(Blackgoku.class, e);
                     }
@@ -170,7 +170,7 @@ public class Blackgoku extends Boss {
                 if (skill.template.id == Skill.TAI_TAO_NANG_LUONG) {
                     this.playerSkill.skillSelect = skill;
                     if (this.nPoint.getCurrPercentHP() < Util.nextInt(0, 100) && SkillService.gI().canUseSkillWithCooldown(this)
-                            && SkillService.gI().useSkill(this, null, null)) {
+                            && SkillService.gI().useSkill(this, null, null ,null )) {
                         return true;
                     }
                 }

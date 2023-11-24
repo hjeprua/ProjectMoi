@@ -180,7 +180,7 @@ public class Controller {
                     break;
                 case -113:
                     if (player != null) {
-                        for (int i = 0; i < 5; i++) {
+                        for (int i = 0; i < 10; i++) {
                             player.playerSkill.skillShortCut[i] = _msg.reader().readByte();
                         }
                         player.playerSkill.sendSkillShortCut();

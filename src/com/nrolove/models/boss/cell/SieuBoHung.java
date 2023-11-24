@@ -55,7 +55,7 @@ public class SieuBoHung extends Boss {
                         goToXY(pl.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 80)),
                                 Util.nextInt(10) % 2 == 0 ? pl.location.y : pl.location.y - Util.nextInt(0, 50), false);
                     }
-                    SkillService.gI().useSkill(this, pl, null);
+                    SkillService.gI().useSkill(this, pl, null ,null );
                     checkPlayerDie(pl);
                 } else {
                     goToPlayer(pl, false);

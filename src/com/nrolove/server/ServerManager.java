@@ -61,7 +61,7 @@ public class ServerManager {
         activeCommandLine();
         activeGame();
         activeServerSocket();
-        new Thread( AutoMainenance .gI (), "thread bao tri "); 
+        new Thread(AutoMainenance.gI(), "Thread TOP").start();
     }
 
     private void activeServerSocket() {
@@ -120,7 +120,7 @@ public class ServerManager {
             while (true) {
                 String line = sc.nextLine();
                 if (line.equals("baotri")) {
-                    Maintenance.gI().start(5);
+                    Maintenance.gI().start(30);
                 } else if (line.equals("athread")) {
                     ServerNotify.gI().notify("NroLove debug server: " + Thread.activeCount());
                 } else if (line.equals("nplayer")) {
@@ -171,14 +171,6 @@ public class ServerManager {
     public void close(long delay) {
         isRunning = false;
         Client.gI().close();
-        try {
-            ClanService.gI().close();
-        } catch (Exception e) {
-            Logger.error("Lỗi save clan!...................................\n");
-        }
-        Logger.success("SUCCESSFULLY MAINTENANCE!...................................\n");
-        System.exit(0);
-
         if (AutoMainenance.isRuning) {
             AutoMainenance.isRuning = false;
             try {
@@ -186,6 +178,13 @@ public class ServerManager {
                 AutoMainenance.runBatchFile(batchFilePath);
             } catch (Exception e) {
             }
+        try {
+            ClanService.gI().close();
+        } catch (Exception e) {
+            Logger.error("Lỗi save clan!...................................\n");
+        }
+        Logger.success("SUCCESSFULLY MAINTENANCE!...................................\n");
+        System.exit(0);
         }
     }
 }

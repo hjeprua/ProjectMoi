@@ -47,7 +47,7 @@ public class NinjaAoTim extends BossDoanhTrai {
                     if (Util.isTrue(30, ConstRatio.PER100)) {
                         this.phanThan();
                     }
-                    SkillService.gI().useSkill(this, pl, null);
+                    SkillService.gI().useSkill(this, pl, null,null );
                     checkPlayerDie(pl);
                 } else {
                     goToPlayer(pl, false);

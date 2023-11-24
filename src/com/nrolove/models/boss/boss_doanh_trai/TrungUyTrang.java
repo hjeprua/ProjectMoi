@@ -50,7 +50,7 @@ public class TrungUyTrang extends BossDoanhTrai {
                 if (Util.isTrue(20, ConstRatio.PER100)) {
                     goToXY(pl.location.x + Util.nextInt(-20, 20), pl.location.y, false);
                 }
-                SkillService.gI().useSkill(this, pl, null);
+                SkillService.gI().useSkill(this, pl, null ,null );
                 checkPlayerDie(pl);
             } else {
                 goToPlayer(pl, false);

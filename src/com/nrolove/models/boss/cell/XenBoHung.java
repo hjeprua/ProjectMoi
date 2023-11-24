@@ -37,7 +37,7 @@ public class XenBoHung extends Boss {
     protected boolean useSpecialSkill() {
         this.playerSkill.skillSelect = this.getSkillSpecial();
         if (SkillService.gI().canUseSkillWithCooldown(this)) {
-            SkillService.gI().useSkill(this, null, null);
+            SkillService.gI().useSkill(this, null, null ,null );
             return true;
         } else {
             return false;
@@ -78,7 +78,7 @@ public class XenBoHung extends Boss {
                                     Util.nextInt(10) % 2 == 0 ? pl.location.y : pl.location.y - Util.nextInt(0, 50),
                                     false);
                         }
-                        SkillService.gI().useSkill(this, pl, null);
+                        SkillService.gI().useSkill(this, pl, null ,null );
                         checkPlayerDie(pl);
                     } else {
                         goToPlayer(pl, false);
@@ -111,9 +111,9 @@ public class XenBoHung extends Boss {
             PlayerService.gI().changeAndSendTypePK(this, ConstPlayer.NON_PK);
             PlayerService.gI().changeTypePK(this, ConstPlayer.PK_ALL);
             this.playerSkill.skillSelect = this.getSkillById(Skill.TU_SAT);
-            SkillService.gI().useSkill(this, null, null);
+            SkillService.gI().useSkill(this, null, null ,null );
             Thread.sleep(3000);
-            SkillService.gI().useSkill(this, null, null);
+            SkillService.gI().useSkill(this, null, null ,null );
         } catch (Exception e) {
             Logger.logException(XenBoHung.class, e);
         }

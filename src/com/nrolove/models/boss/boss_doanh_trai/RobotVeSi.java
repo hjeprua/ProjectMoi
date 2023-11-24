@@ -30,7 +30,7 @@ public class RobotVeSi extends BossDoanhTrai {
                         goToXY(pl.location.x + Util.nextInt(-20, 20), Util.nextInt(pl.location.y - 80,
                                 this.zone.map.yPhysicInTop(pl.location.x, 0)), false);
                     }
-                    SkillService.gI().useSkill(this, pl, null);
+                    SkillService.gI().useSkill(this, pl, null,null);
                     checkPlayerDie(pl);
                 } else {
                     goToPlayer(pl, false);

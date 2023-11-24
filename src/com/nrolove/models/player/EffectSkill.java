@@ -66,6 +66,11 @@ public class EffectSkill {
     public int timeSocola;
     public int countPem1hp;
 
+    //Ma Phong Ba
+    public boolean isBinh;
+    public long lastTimeHoaBinh;
+    public int timeBinh;
+
     public EffectSkill(Player player) {
         this.player = player;
     }
@@ -122,13 +127,16 @@ public class EffectSkill {
         if (tiLeHPHuytSao != 0 && Util.canDoWithTime(lastTimeHuytSao, 30000)) {
             EffectSkillService.gI().removeHuytSao(this.player);
         }
+        if (isBinh && (Util.canDoWithTime(lastTimeHoaBinh, 30000)) ) {
+              EffectSkillService.gI().removeBinh(this.player);
+        }
     }
 
     public boolean isHaveEffectSkill() {
         return isStun || isBlindDCTT || anTroi || isThoiMien;
     }
-    
-    public void dispose(){
+
+    public void dispose() {
         this.player = null;
     }
 }

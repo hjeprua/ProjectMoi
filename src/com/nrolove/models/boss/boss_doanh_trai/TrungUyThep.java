@@ -30,7 +30,7 @@ public class TrungUyThep extends BossDoanhTrai {
                 Player pl = getPlayerAttack();
                 this.playerSkill.skillSelect = this.getSkillAttack();
                 if (Util.getDistance(this, pl) <= this.getRangeCanAttackWithSkillSelect()) {
-                    SkillService.gI().useSkill(this, pl, null);
+                    SkillService.gI().useSkill(this, pl, null ,null );
                     checkPlayerDie(pl);
                 } else {
                     goToPlayer(pl, false);

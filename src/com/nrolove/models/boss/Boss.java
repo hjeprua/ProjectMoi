@@ -514,7 +514,7 @@ public abstract class Boss extends Player implements BossInterface {
                                     false);
                         }
                     }
-                    SkillService.gI().useSkill(this, pl, null);
+                    SkillService.gI().useSkill(this, pl, null ,null );
                     checkPlayerDie(pl);
                 } else {
                     goToPlayer(pl, false);
@@ -541,7 +541,7 @@ public abstract class Boss extends Player implements BossInterface {
                                     false);
                         }
                     }
-                    SkillService.gI().useSkill(this, pl, null);
+                    SkillService.gI().useSkill(this, pl, null ,null );
                     checkPlayerDie(pl);
                 } else {
                     goToPlayer(pl, false);

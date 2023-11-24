@@ -36,7 +36,7 @@ public class TrungUyXanhLo extends BossDoanhTrai {
                             goToXY(pl.location.x + Util.nextInt(-20, 20),
                                     Util.nextInt(pl.location.y - 80, this.zone.map.yPhysicInTop(pl.location.x, 0)), false);
                         }
-                        SkillService.gI().useSkill(this, pl, null);
+                        SkillService.gI().useSkill(this, pl, null ,null );
                         checkPlayerDie(pl);
                     } else {
                         goToPlayer(pl, false);
@@ -62,7 +62,7 @@ public class TrungUyXanhLo extends BossDoanhTrai {
         //boss này chỉ có chiêu thái dương hạ san
         this.playerSkill.skillSelect = this.getSkillSpecial();
         if (SkillService.gI().canUseSkillWithCooldown(this)) {
-            SkillService.gI().useSkill(this, null, null);
+            SkillService.gI().useSkill(this, null, null ,null );
             return true;
         } else {
             return false;

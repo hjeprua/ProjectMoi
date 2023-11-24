@@ -1726,7 +1726,7 @@ public class PlayerDAO {
                     ps.setInt(34, (int) player.id);
 //                    ServerLogSavePlayer.gI().add(ps.toString());
                     ps.executeUpdate();
-                    Logger.success("Logout " + player.name );
+                    Logger.success("Logout " + player.name + "\n");
 //                    Logger.warning("\nCurrent using: " + DBService.gI().currentActive() + " - Current available: " + DBService.gI().currentIdle() + "\n");
                     ps.close();
                 } catch (Exception e) {

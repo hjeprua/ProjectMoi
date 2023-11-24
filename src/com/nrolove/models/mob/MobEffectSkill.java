@@ -163,4 +163,28 @@ public class MobEffectSkill {
         this.timeSocola = timeSocola;
         this.isSocola = true;
     }
+    public boolean isBinh;
+    public long lastTimeBinh;
+    public int timeBinh;
+
+    public void setBinh(long lastTimeBinh, int timeBinh) {
+        this.lastTimeBinh = lastTimeBinh;
+        this.timeBinh = timeBinh;
+        this.isBinh = true;
+    }
+
+    public void removeBinh() {
+        Message msg;
+        this.isBinh = false;
+        try {
+            msg = new Message(-112);
+            msg.writer().writeByte(0);
+            msg.writer().writeByte(mob.id);
+            Service.gI().sendMessAllPlayerInMap(mob.zone, msg);
+            msg.cleanup();
+        } catch (Exception e) {
+
+        }
+    }
+
 }

@@ -4,8 +4,6 @@ import java.net.Socket;
 import com.nrolove.models.player.Player;
 import com.nrolove.server.Controller;
 import com.nrolove.data.DataGame;
-import com.nrolove.jdbc.DBService;
-import com.nrolove.jdbc.daos.AccountDAO;
 import com.nrolove.jdbc.daos.GodGK;
 import com.nrolove.models.item.Item;
 import com.nrolove.server.Client;
@@ -14,7 +12,6 @@ import com.nrolove.server.Manager;
 import static com.nrolove.server.ServerManager.CLIENTS;
 import com.nrolove.server.model.AntiLogin;
 import com.nrolove.services.ItemService;
-import com.nrolove.services.PlayerService;
 import com.nrolove.services.Service;
 import com.nrolove.utils.Logger;
 import com.nrolove.utils.Util;
@@ -283,7 +280,7 @@ public class Session {
                     //-31 data item background
                     DataGame.sendDataItemBG(this);
                     controller.sendInfo(this);
-                    Logger.login("Login usename " + this.userId  );
+                    Logger.login("Login usename " + this.userId + "\n");
                 }
             } catch (Exception e) {
                 if (player != null) {

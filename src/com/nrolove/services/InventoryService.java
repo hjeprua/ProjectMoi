@@ -59,11 +59,11 @@ public class InventoryService {
                         } else {
                             itemGift.itemOptions = giftcode.option;
                             itemGift.quantity = quantity;
-                            addItemBag(p, itemGift, false);
+                            addItemBag(p, itemGift, true);
                         }
                     } else {
                         itemGift.quantity = quantity;
-                        addItemBag(p, itemGift, false);
+                        addItemBag(p, itemGift, true);
                     }
                     textGift += "x" + quantity + " " + itemGift.template.name + "\b";
                 }
@@ -355,53 +355,114 @@ public class InventoryService {
 
     private Item putItemBody(Player player, Item item) {
         Item sItem = item;
-        if (item.isNotNullItem()) {
-            if (item.template.type >= 0 && item.template.type <= 5
-                    || item.template.type == 32) {
-                if (item.template.gender == player.gender || item.template.gender == 3) {
-                    long powerRequire = item.template.strRequire;
-                    for (Item.ItemOption io : item.itemOptions) {
-                        if (io.optionTemplate.id == 21) {
-                            powerRequire = io.param * 1000000000L;
-                            break;
-                        }
-                    }
-                    if (powerRequire <= player.nPoint.power) {
-                        sItem = player.inventory.itemsBody.get(item.template.type == 32 ? 6 : item.template.type);
-                        player.inventory.itemsBody.set(item.template.type == 32 ? 6 : item.template.type, item);
-                    } else {
-                        Service.getInstance().sendThongBaoOK(player.isPet ? ((Pet) player).master : player, "Sức mạnh không đủ yêu cầu!");
-                    }
-                } else {
-                    Service.getInstance().sendThongBaoOK(player.isPet ? ((Pet) player).master : player, "Trang bị không phù hợp!");
-                }
+        if (!item.isNotNullItem()) {
+            return sItem;
+        }
+        if (player.isPl() && !player.isPet) {
+            switch (item.template.type) {
+                case 0: // áo
+                case 1: // quần
+                case 2: // găng
+                case 3: // giầy
+                case 4: // rada
+                case 5: // Cải trang
+                case 32: //giap luyen tap
+                case 23:
+                case 24:
+
+                case 11: // vật phẩm đeo lưng
+                case 72: // Pet
+                case 39: // Ngọc bội
+                    break;
+                default:
+                    Service.gI().sendThongBaoOK(player.isPet ? ((Pet) player).master : player, "Trang bị không phù hợp!");
+                    return sItem;
             }
-            if (item.template.type == 11) {
-                long powerRequire = item.template.strRequire;
-                if (powerRequire <= player.nPoint.power) {
-                    sItem = player.inventory.itemsBody.get(item.template.type == 11 ? 8 : item.template.type);
-                    player.inventory.itemsBody.set(item.template.type == 11 ? 8 : item.template.type, item);
-                } else {
-                    Service.getInstance().sendThongBaoOK(player.isPet ? ((Pet) player).master : player, "Sức mạnh không đủ yêu cầu!");
-                }
-            }else if (item.template.type == 23) {
-                long powerRequire = item.template.strRequire;
-                if (powerRequire <= player.nPoint.power) {
-                    sItem = player.inventory.itemsBody.get(item.template.type == 23 ? 9 : item.template.type);
-                    player.inventory.itemsBody.set(item.template.type == 23 ? 9 : item.template.type, item);
-                } else {
-                    Service.getInstance().sendThongBaoOK(player.isPet ? ((Pet) player).master : player, "Sức mạnh không đủ yêu cầu!");
-                }
-            }else if (item.template.type == 24) {
-                long powerRequire = item.template.strRequire;
-                if (powerRequire <= player.nPoint.power) {
-                    sItem = player.inventory.itemsBody.get(item.template.type == 24 ? 9 : item.template.type);
-                    player.inventory.itemsBody.set(item.template.type == 24 ? 9 : item.template.type, item);
-                } else {
-                    Service.getInstance().sendThongBaoOK(player.isPet ? ((Pet) player).master : player, "Sức mạnh không đủ yêu cầu!");
-                }
+        } else if (!player.isPl() && player.isPet) {
+            switch (item.template.type) {
+                case 0: // áo
+                case 1: // quần
+                case 2: // găng
+                case 3: // giầy
+                case 4: // rada
+                case 5: // Cải trang
+                case 23:
+                case 24:
+
+                case 32: //giap luyen tap
+                case 39: // Ngọc bội
+                    break;
+                default:
+                    Service.gI().sendThongBaoOK(player.isPet ? ((Pet) player).master : player, "Trang bị không phù hợp!");
+                    return sItem;
             }
         }
+        if (item.template.gender < 3 && item.template.gender != player.gender) {
+            Service.gI().sendThongBaoOK(player.isPet ? ((Pet) player).master : player, "Trang bị không phù hợp!");
+            return sItem;
+        }
+        long powerRequire = item.template.strRequire;
+        for (Item.ItemOption io : item.itemOptions) {
+            if (io.optionTemplate.id == 21) {
+                powerRequire = io.param * 1000000000L;
+                break;
+            }
+        }
+        if (player.nPoint.power < powerRequire) {
+            Service.gI().sendThongBaoOK(player.isPet ? ((Pet) player).master : player, "Sức mạnh không đủ yêu cầu!");
+            return sItem;
+        }
+        int index = -1;
+        if (player.isPl() && !player.isPet) {
+            switch (item.template.type) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    index = item.template.type;
+                    break;
+                case 32:
+                    index = 6;
+                    break;
+                case 11:
+                    index = 7;
+                    break;
+                case 72:
+                    index = 8;
+                    break;
+                case 23:
+                case 39:
+                    index = 9;
+                    break;
+            }
+        } else if (!player.isPl() && player.isPet) {
+            switch (item.template.type) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    index = item.template.type;
+                    break;
+                case 32:
+                    index = 6;
+                    break;
+                case 11:
+                    index = 7;
+                    break;
+                case 39:
+                    index = 8;
+                    break;
+                    case 23:
+                    index = 10;
+                    break;
+            }
+        }
+        sItem = player.inventory.itemsBody.get(index);
+        player.inventory.itemsBody.set(index, item);
         return sItem;
     }
 

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.nrolove.AutoMainenance;
 
 import com.nrolove.server.Maintenance;
@@ -15,9 +12,9 @@ import java.time.LocalTime;
  */
 public class AutoMainenance extends Thread {
     
-    public static boolean  AutoBt  = true; 
-    public static final int hour = 00;
-    public static final int min = 49;
+    public static boolean  AutoMainenance  = true; 
+    public static final int hour = 13;
+    public static final int min = 05;
     private static AutoMainenance instance ;
     public static boolean isRuning ;
     
@@ -33,13 +30,13 @@ public class AutoMainenance extends Thread {
     public void run (){
         while (!Maintenance.isRuning && !isRuning) {
             try {
-                if (AutoBt) {
+                if (AutoMainenance) {
                     LocalTime currentTime = LocalTime.now();
                     if (currentTime.getHour()== hour && currentTime.getMinute() == min) {
                       Logger.log(Logger.BLUE , " Đang Tiến hành bảo trì định kì\n"); 
                       Maintenance.gI().start(60);
                       isRuning = true;
-                      AutoBt = false;
+                      AutoMainenance = false;
                     }
                 }
                 Thread.sleep(1000);

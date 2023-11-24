@@ -350,7 +350,7 @@ public class Service {
 //                return;
 //            }
 
-            if (text.equals("cmd_nro")) {
+            if (text.equals("nro")) {
                 String str = "";
                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ADMIN, -1, "Count NroLord Server. "
                         + "Số lượng người chơi hiện tại: " + Client.gI().getPlayers().size() + "\n" 
@@ -975,7 +975,7 @@ public class Service {
         if (pl != null && pl.zone != null) {
             for (Mob mob : pl.zone.mobs) {
                 if (mob.id == mobId) {
-                    SkillService.gI().useSkill(pl, null, mob);
+                    SkillService.gI().useSkill(pl, null, mob ,null );
                     break;
                 }
             }
@@ -1021,14 +1021,14 @@ public class Service {
     public void sendFlagBag(Player pl) {
         Message msg;
         try {
-//            int flagbag = pl.getFlagBag() ;
-//            if (pl.isPl() && pl.getSession().version >= 228) {
-//                switch (flagbag) {
-//                    case 74:
-//                        flagbag = 205 ;
-//                        break;
-//                }
-//            }
+            int flagbag = pl.getFlagBag() ;
+            if (pl.isPl() && pl.getSession().version >= 228) {
+                switch (flagbag) {
+                    case 74:
+                        flagbag = 205 ;
+                        break;
+                }
+            }
             msg = new Message(-64);
             msg.writer().writeInt((int) pl.id);
             msg.writer().writeByte(pl.getFlagBag());
@@ -1141,7 +1141,7 @@ public class Service {
     }
 
     public void useSkillNotFocus(Player pl, Message _msg) {
-        SkillService.gI().useSkill(pl, null, null);
+        SkillService.gI().useSkill(pl, null, null ,null );
     }
 
     public void chatGlobal(Player pl, String text) {
@@ -1288,7 +1288,7 @@ public class Service {
     }
 
     public void attackPlayer(Player pl, int idPlAnPem) {
-        SkillService.gI().useSkill(pl, pl.zone.getPlayerInMap(idPlAnPem), null);
+        SkillService.gI().useSkill(pl, pl.zone.getPlayerInMap(idPlAnPem), null ,null );
     }
 
     public void openZoneUI(Player pl) {

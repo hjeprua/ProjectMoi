@@ -195,6 +195,22 @@ public class EffectSkillService {
             com.nrolove.utils.Logger.logException(EffectSkillService.class, e);
         }
     }
+    
+    public void sendMobTomaphongba(Player player, Mob mob, int timeBinh) {
+        Message msg;
+        try {
+            msg = new Message(-112);
+            msg.writer().writeByte(1);
+            msg.writer().writeByte(mob.id); //mob id
+            msg.writer().writeShort(11175); //icon socola
+            Service.gI().sendMessAllPlayerInMap(player, msg);
+  
+            msg.cleanup();
+            mob.effectSkill.setBinh(System.currentTimeMillis(), timeBinh);
+        } catch (Exception e) {
+            com.nrolove.utils.Logger.logException(EffectSkillService.class, e);
+        }
+    }
     //**************************************************************************
 
     //Dịch chuyển tức thời *****************************************************
@@ -295,6 +311,18 @@ public class EffectSkillService {
         removeShield(player);
         Service.getInstance().sendThongBao(player, "Khiên năng lượng đã bị vỡ!");
         ItemTimeService.gI().removeItemTime(player, 3784);
+    }
+    //**************************************************************************
+    //Ma Phong Ba*********************************************************
+    public void SetHoaBinh(Player player, long lastTimeHoaBinh, int timeHoaBinh){
+        player.effectSkill.lastTimeHoaBinh = lastTimeHoaBinh;
+        player.effectSkill.timeBinh = timeHoaBinh;
+        player.effectSkill.isBinh = true;
+        
+    }
+    public void removeBinh(Player player){
+        player.effectSkill.isBinh = false;
+        Service.gI().Send_Caitrang(player);
     }
 
     //**************************************************************************

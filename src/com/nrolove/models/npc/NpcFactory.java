@@ -795,8 +795,7 @@ public class NpcFactory {
                                     this.createOtherMenu(player, ConstNpc.BASE_MENU,
                                             "Ngươi tìm ta có việc gì?",
                                             "Cửa hàng\nBùa", "Nâng cấp\nVật phẩm",
-                                            "Nâng cấp\nBông tai\nPorata", "Làm phép\nNhập đá",
-                                            "Nhập\nNgọc Rồng", "Nâng cấp\nChỉ Số\nPorata");
+                                            "Nâng cấp\nBông tai\nPorata","Nhập\nNgọc Rồng", "Nâng cấp\nChỉ Số\nPorata");
                                 }
                             }
                         }
@@ -808,33 +807,22 @@ public class NpcFactory {
                                     if (player.iDMark.isBaseMenu()) {
                                         switch (select) {
                                             case 0:
-//                                                CombineService.gI().openTabCombine(player, CombineService.EP_SAO_TRANG_BI);
                                                 CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.EP_SAO_TRANG_BI);
                                                 break;
                                             case 1:
                                                 this.createOtherMenu(player, ConstNpc.MENU_PHA_LE_HOA_TRANG_BI,
                                                         "Ngươi muốn pha lê hóa trang bị bằng cách nào?", "Bằng ngọc", "Từ chối");
                                                 break;
-//                                            case 2:
-//                                                this.createOtherMenu(player, ConstNpc.MENU_PHA_LE_HOA_TRANG_BI,
-//                                                        "Ta sẽ biến trang bị mới cao cấp hơn của ngươi\nthành trang"
-//                                                        + " bị có cấp độ và sao pha lê của trang bị cũ", "Chuyển\nhóa\nDùng vàng",
-//                                                        "Chuyển\nhóa\nDùng ngọc");
-//                                                break;
                                             case 2:
                                                 CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.DOI_VE_HUY_DIET);
                                                 break;
                                             case 3:
                                                 CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.DAP_SET_KICH_HOAT);
                                                 break;
-//                                            case 5:
-//                                                CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.DOI_MANH_KICH_HOAT);
-//                                                break;
                                         }
                                     } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_PHA_LE_HOA_TRANG_BI) {
                                         switch (select) {
                                             case 0:
-//                                                CombineService.gI().openTabCombine(player, CombineService.PHA_LE_HOA_TRANG_BI);
                                                 CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.PHA_LE_HOA_TRANG_BI);
                                                 break;
                                         }
@@ -851,10 +839,26 @@ public class NpcFactory {
                                         switch (player.combineNew.typeCombine) {
                                             case CombineServiceNew.EP_SAO_TRANG_BI:
                                             case CombineServiceNew.PHA_LE_HOA_TRANG_BI:
-//                                            case CombineServiceNew.CHUYEN_HOA_TRANG_BI:
                                             case CombineServiceNew.DOI_VE_HUY_DIET:
                                             case CombineServiceNew.DAP_SET_KICH_HOAT:
-//                                            case CombineServiceNew.DOI_MANH_KICH_HOAT:
+                                                switch (select) {
+                                        case 0:
+                                            if (player.combineNew.typeCombine == CombineServiceNew.PHA_LE_HOA_TRANG_BI) {
+                                                player.combineNew.quantities = 1;
+                                            }
+                                            break;
+                                        case 1:
+                                            if (player.combineNew.typeCombine == CombineServiceNew.PHA_LE_HOA_TRANG_BI) {
+                                                player.combineNew.quantities = 10;
+                                            }
+                                            break;
+                                        case 2:
+                                            if (player.combineNew.typeCombine == CombineServiceNew.PHA_LE_HOA_TRANG_BI) {
+                                                player.combineNew.quantities = 100;
+                                            }
+                                            break;      
+                                    }
+                                        CombineServiceNew.gI().startCombine(player);
                                                 if (select == 0) {
                                                     CombineServiceNew.gI().startCombine(player);
                                                 }
@@ -879,19 +883,15 @@ public class NpcFactory {
                                                         "Bùa\n1 giờ", "Bùa\n8 giờ", "Bùa\n1 tháng", "Đóng");
                                                 break;
                                             case 1:
-//                                                CombineService.gI().openTabCombine(player, CombineService.NANG_CAP_TRANG_BI);
                                                 CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.NANG_CAP_VAT_PHAM);
                                                 break;
                                             case 2: //nâng cấp bông tai
                                                 CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.NANG_CAP_BONG_TAI);
                                                 break;
-                                            case 3: //làm phép nhập đá
-                                                break;
-                                            case 4:
-//                                                CombineService.gI().openTabCombine(player, CombineService.NHAP_NGOC_RONG);
+                                            case 3:
                                                 CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.NHAP_NGOC_RONG);
                                                 break;
-                                            case 5:
+                                            case 4:
                                                 CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.MO_CHI_SO_BONG_TAI);
                                                 break;
                                         }
@@ -913,6 +913,7 @@ public class NpcFactory {
                                             case CombineServiceNew.NANG_CAP_BONG_TAI:
                                             case CombineServiceNew.LAM_PHEP_NHAP_DA:
                                             case CombineServiceNew.NHAP_NGOC_RONG:
+                                            case CombineServiceNew.MO_CHI_SO_BONG_TAI:
                                                 if (select == 0) {
                                                     CombineServiceNew.gI().startCombine(player);
                                                 }

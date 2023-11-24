@@ -30,28 +30,43 @@ public class InventoryServiceNew {
         if (!item.isNotNullItem()) {
             return sItem;
         }
-        switch (item.template.type) {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 32:
-            case 23:
-            case 24:
-            case 27:
-            case 11:
-            case 72:
-                break;
-            default:
-                Service.getInstance().sendThongBaoOK(player.isPet ? ((Pet) player).master : player,
-                        "Trang bị không phù hợp!");
-                return sItem;
+        if (player.isPl() && !player.isPet) {
+            switch (item.template.type) {
+                case 0: // áo
+                case 1: // quần
+                case 2: // găng
+                case 3: // giầy
+                case 4: // rada
+                case 5: // Cải trang
+                case 32: //giap luyen tap
+                case 23:
+                case 24:
+                case 27:
+                case 11: // vật phẩm đeo lưng
+                case 72: // Pet
+                    break;
+                default:
+                    Service.gI().sendThongBaoOK(player.isPet ? ((Pet) player).master : player, "Trang bị không phù hợp!");
+                    return sItem;
+            }
+        } else if (!player.isPl() && player.isPet) {
+            switch (item.template.type) {
+                case 0: // áo
+                case 1: // quần
+                case 2: // găng
+                case 3: // giầy
+                case 4: // rada
+                case 5: // Cải trang
+
+                case 32: //giap luyen tap
+                    break;
+                default:
+                    Service.gI().sendThongBaoOK(player.isPet ? ((Pet) player).master : player, "Trang bị không phù hợp!");
+                    return sItem;
+            }
         }
         if (item.template.gender < 3 && item.template.gender != player.gender) {
-            Service.getInstance().sendThongBaoOK(player.isPet ? ((Pet) player).master : player,
-                    "Trang bị không phù hợp!");
+            Service.gI().sendThongBaoOK(player.isPet ? ((Pet) player).master : player, "Trang bị không phù hợp!");
             return sItem;
         }
         long powerRequire = item.template.strRequire;
@@ -62,36 +77,51 @@ public class InventoryServiceNew {
             }
         }
         if (player.nPoint.power < powerRequire) {
-            Service.getInstance().sendThongBaoOK(player.isPet ? ((Pet) player).master : player,
-                    "Sức mạnh không đủ yêu cầu!");
+            Service.gI().sendThongBaoOK(player.isPet ? ((Pet) player).master : player, "Sức mạnh không đủ yêu cầu!");
             return sItem;
         }
         int index = -1;
-        switch (item.template.type) {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-                index = item.template.type;
-                break;
-            case 32:
-                index = 6;
-                break;
-            case 50:
-            case 23:
-            case 24:
-                index = 7;
-                break;
-            case 11:
-                index = 8;
-                break;
-            case 27:
-                index = 9;
-                break;
-            case 72:
-                index = 10;
+        if (player.isPl() && !player.isPet) {
+            switch (item.template.type) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    index = item.template.type;
+                    break;
+                case 32:
+                    index = 6;
+                    break;
+                case 50:
+                case 23:
+                case 24:
+                    index = 7;
+                    break;
+                case 11:
+                    index = 8;
+                    break;
+                case 27:
+                    index = 9;
+                    break;
+                case 72:
+                    index = 10;
+            }
+        } else if (!player.isPl() && player.isPet) {
+            switch (item.template.type) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    index = item.template.type;
+                    break;
+                case 32:
+                    index = 6;
+                    break;
+            }
         }
         sItem = player.inventory.itemsBody.get(index);
         player.inventory.itemsBody.set(index, item);

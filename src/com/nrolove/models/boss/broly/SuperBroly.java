@@ -57,7 +57,7 @@ public class SuperBroly extends Broly {
                         }
                         this.effectCharger();
                         try {
-                            SkillService.gI().useSkill(this, pl, null);
+                            SkillService.gI().useSkill(this, pl, null ,null );
                         } catch (Exception e) {
                             Logger.logException(SuperBroly.class, e);
                         }
