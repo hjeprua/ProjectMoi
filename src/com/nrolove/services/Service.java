@@ -1135,6 +1135,24 @@ public class Service {
 
         }
     }
+    
+    public void sendEffPlayer(Player pl, Player plReceive, int idEff, int layer, int loop, int loopCount) {
+        Message msg = null;
+        try {
+            msg = new Message(-128);
+            msg.writer().writeByte(0);
+            msg.writer().writeInt((int) pl.id);
+            msg.writer().writeShort(idEff);
+            msg.writer().writeByte(layer);
+            msg.writer().writeByte(loop);
+            msg.writer().writeShort(loopCount);
+            msg.writer().writeByte(0);
+            plReceive.sendMessage(msg);
+            msg.cleanup();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public boolean isItemMoney(int type) {
         return type == 9 || type == 10 || type == 34;

@@ -57,6 +57,9 @@ public class Player {
     public boolean isPet;
     public boolean isNewMiniPet;
     public boolean isBoss;
+    
+    public byte role;
+    public short idAura = -1;
 
     public int playerTradeId = -1;
     public Player playerTrade;

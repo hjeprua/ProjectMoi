@@ -257,7 +257,7 @@ public class Zone {
             if (itemMap.playerId == player.id || itemMap.playerId == -1) {
                 Item item = ItemService.gI().createItemFromItemMap(itemMap);
                 boolean picked = true;
-                    picked = InventoryService.gI().addItemBag(player, item,false);
+                picked = InventoryService.gI().addItemBag(player, item, false);
                 if (picked) {
                     int itemType = item.template.type;
                     Message msg;
@@ -433,11 +433,13 @@ public class Zone {
                 msg.writer().writeByte(plInfo.cFlag);
                 msg.writer().writeByte(0);
 
-//            if (!plInfo.isPet && !plInfo.isBoss && plInfo.isAdmin()) {
+                //     if (plInfo.isPl()) {
                 msg.writer().writeShort(plInfo.getAura()); //idauraeff
-                msg.writer().writeByte(-1); //seteff
+                msg.writer().writeByte(8); //seteff
             }
-//            }
+            if (plInfo.getSession() != null && plInfo.isAdmin()) {
+                Service.gI().sendEffPlayer(plInfo, plReceive, 57, 1, -1, 1);
+            }
 
             plReceive.sendMessage(msg);
             msg.cleanup();

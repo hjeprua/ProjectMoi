@@ -704,12 +704,13 @@ public class ChangeMapService {
                 case 97: //thành phố phía bắc
                 case 98: //ngọn núi phía bắc
                 case 99: //thung lũng phía bắc
-                case 100: //thị trấn ginder
+                case 100: //thị trấn ginder 
                     if (TaskService.gI().getIdTask(player) < ConstTask.TASK_20_0) {
                         return null;
                     }
                     break;
                 case 103: //võ đài xên
+                case 156:
                     if (TaskService.gI().getIdTask(player) < ConstTask.TASK_25_0) {
                         return null;
                     }

@@ -9,7 +9,6 @@ import com.nrolove.services.Service;
 import com.nrolove.utils.Logger;
 import com.nrolove.utils.Util;
 
-
 public class TransactionService implements Runnable {
 
     private static final int TIME_DELAY_TRADE = 30000;
@@ -78,6 +77,11 @@ public class TransactionService implements Runnable {
                     if (trade != null) {
                         byte index = msg.reader().readByte();
                         int quantity = msg.reader().readInt();
+                        if (quantity < 0) {
+                            Service.gI().sendThongBao(pl, "bug cái con cặc");
+                            trade.cancelTrade();
+                            break;
+                        }
                         if (quantity == 0) {//do
                             quantity = 1;
                         }
