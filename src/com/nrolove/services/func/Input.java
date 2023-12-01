@@ -33,6 +33,7 @@ public class Input {
     public static final int CHANGE_NAME = 503;
     public static final int CHOOSE_LEVEL_BDKB = 504;
     private static final int GIVE_IT = 505;
+    public static final int CHUYEN_HONG_NGOC = 523;
 
     public static final byte NUMERIC = 0;
     public static final byte ANY = 1;
@@ -126,6 +127,27 @@ public class Input {
 
                     // BanDoKhoBauService.gI().openBanDoKhoBau(player, (byte) );
                     break;
+                    case CHUYEN_HONG_NGOC:
+                    Player pldcchuyen = Client.gI().getPlayer(text[0]);
+                    int slhn = Integer.parseInt(text[1]);
+                    if (pldcchuyen != null) {
+                        if (player.inventory.ruby < slhn || slhn < 1 || slhn > 100000) {
+                            Service.gI().sendThongBao(player,
+                                    "làm thêm vài cái nx đi khóa acc cho :))\nNhập từ 1 - 100k hồng ngọc");
+                            return;
+                        }
+                        player.inventory.ruby -= slhn;
+                        pldcchuyen.inventory.ruby += slhn;
+                        Service.gI().sendMoney(player);
+                        Service.gI().sendMoney(pldcchuyen);
+                        Service.gI().sendThongBao(player,
+                                "Bạn đã chuyển thành công " + slhn + " Hồng ngọc cho " + pldcchuyen.name);
+                        Service.gI().sendThongBao(pldcchuyen,
+                                "Bạn đã nhận " + slhn + " Hồng ngọc từ " + player.name);
+                    } else {
+                        Service.gI().sendThongBao(player, "Người chơi không tồn tại hoặc đang offline");
+                    }
+                    break;
             }
         } catch (Exception e) {
         }
@@ -174,6 +196,10 @@ public class Input {
 
     public void createFormChooseLevelBDKB(Player pl) {
         createForm(pl, CHOOSE_LEVEL_BDKB, "Chọn cấp độ", new SubInput("Cấp độ (1-110)", NUMERIC));
+    }
+    
+    public void tanghongngoc(Player pl) {
+        createForm(pl, CHUYEN_HONG_NGOC, "Chuyển Hồng Ngọc", new SubInput("Tên Người chơi", ANY), new SubInput("Số Hồng ngọc chuyển", ANY));
     }
 
     public class SubInput {

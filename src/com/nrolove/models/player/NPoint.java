@@ -777,8 +777,20 @@ public class NPoint {
             if (this.intrinsic != null && this.intrinsic.id == 24) {
                 tiemNang += ((long) tiemNang * this.intrinsic.param1 / 100);
             }
+            if (this.power >= 40000000000L) {
+                tiemNang -= ((long) tiemNang * 40 / 100);
+            }
+            if (this.power >= 50000000000L) {
+                tiemNang -= ((long) tiemNang * 50 / 100);
+            }
             if (this.power >= 60000000000L) {
+                tiemNang -= ((long) tiemNang * 60 / 100);
+            }
+            if (this.power >= 80000000000L) {
                 tiemNang -= ((long) tiemNang * 80 / 100);
+            }
+            if (this.power >= 10000000000L) {
+                tiemNang -= ((long) tiemNang * 90 / 100);
             }
             if (this.player.isPet) {
                 if (((Pet) this.player).master.charms.tdDeTu > System.currentTimeMillis()) {

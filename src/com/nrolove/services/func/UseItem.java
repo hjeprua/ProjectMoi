@@ -11,6 +11,7 @@ import com.nrolove.models.player.Player;
 import com.nrolove.models.skill.Skill;
 import com.nrolove.server.io.Message;
 import com.nrolove.server.io.Session;
+import com.nrolove.services.EffectSkillService;
 import com.nrolove.services.InventoryService;
 import com.nrolove.services.ItemService;
 import com.nrolove.services.ItemTimeService;
@@ -60,7 +61,7 @@ public class UseItem {
 
     public void getItem(Session session, Message msg) {
         Player player = session.player;
-                TransactionService.gI().cancelTrade(player);
+        TransactionService.gI().cancelTrade(player);
         try {
             int type = msg.reader().readByte();
             int index = msg.reader().readByte();
@@ -306,6 +307,11 @@ public class UseItem {
                             } else {
                                 Service.getInstance().sendThongBao(pl, "Đặt ít thôi con");
                             }
+                            break;
+                        case 1107:
+                            Input.gI().tanghongngoc(pl);
+                            InventoryService.gI().subQuantityItemsBag(pl, item, 1);
+                            InventoryService.gI().sendItemBags(pl);
                             break;
                         case 2020: // phiếu cải trang 20/10
                             openbox2010(pl, item);
@@ -873,7 +879,7 @@ public class UseItem {
             }
         }
     }
-    
+
     private void usePorata2(Player pl) {
         if (pl.pet == null || pl.fusion.typeFusion == 4 || pl.fusion.typeFusion == 6 || pl.fusion.typeFusion == 10 || pl.fusion.typeFusion == 12) {
             Service.getInstance().sendThongBao(pl, "Không thể thực hiện");

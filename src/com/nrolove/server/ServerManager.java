@@ -1,6 +1,5 @@
 package com.nrolove.server;
 
-import com.nrolove.AutoMainenance.AutoMainenance;
 import java.net.ServerSocket;
 import java.net.Socket;
 import com.nrolove.jdbc.daos.AccountDAO;
@@ -61,7 +60,6 @@ public class ServerManager {
         activeCommandLine();
         activeGame();
         activeServerSocket();
-        new Thread(AutoMainenance.gI(), "Thread TOP").start();
     }
 
     private void activeServerSocket() {
@@ -79,7 +77,7 @@ public class ServerManager {
                         sc.close();
                     }
                 } catch (Exception e) {
-//                        Logger.logException(ServerManager.class, e);
+                        Logger.logException(ServerManager.class, e);
                 }
             }
             listenSocket.close();
@@ -171,13 +169,6 @@ public class ServerManager {
     public void close(long delay) {
         isRunning = false;
         Client.gI().close();
-        if (AutoMainenance.isRuning) {
-            AutoMainenance.isRuning = false;
-            try {
-                String batchFilePath = "run.bat";
-                AutoMainenance.runBatchFile(batchFilePath);
-            } catch (Exception e) {
-            }
         try {
             ClanService.gI().close();
         } catch (Exception e) {
@@ -187,4 +178,3 @@ public class ServerManager {
         System.exit(0);
         }
     }
-}

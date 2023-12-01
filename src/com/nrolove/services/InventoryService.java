@@ -31,46 +31,43 @@ public class InventoryService {
         return i;
     }
     
-    public void addItemGiftCodeToPlayer(Player p, GiftService giftcode) {
+   public void addItemGiftCodeToPlayer(Player p, GiftService giftcode) {
         Set<Integer> keySet = giftcode.Item.keySet();
-        String textGift = "Bạn vừa nhận được:\b";
+        Service.gI().sendThongBao(p, "Bạn vừa nhập GiftCode\nthành công.");
         for (Integer key : keySet) {
             int idItem = key;
             int quantity = giftcode.Item.get(key);
+
             if (idItem == -1) {
                 p.inventory.gold = Math.min(p.inventory.gold + (long) quantity, 2000000000L);
-                textGift += quantity + " vàng\b";
+//                textGift += quantity + " vàng\b";
+//            Service.gI().sendThongBao(p, "Bạn nhận được X" + quantity + " vàng");
             } else if (idItem == -2) {
                 p.inventory.gem = Math.min(p.inventory.gem + quantity, 200000000);
-                textGift += quantity + " ngọc\b";
+//                textGift += quantity + " ngọc\b";
             } else if (idItem == -3) {
                 p.inventory.ruby = Math.min(p.inventory.ruby + quantity, 200000000);
-                textGift += quantity + " ngọc khóa\b";
+//                textGift += quantity + " ngọc khóa\b";
+                break;
             } else {
+
                 Item itemGiftTemplate = ItemService.gI().createNewItem((short) idItem);
                 if (itemGiftTemplate != null) {
                     Item itemGift = new Item((short) idItem);
-                    if (itemGift.template.type == 0 || itemGift.template.type == 1 || itemGift.template.type == 2
-                            || itemGift.template.type == 3
-                            || itemGift.template.type == 4 || itemGift.template.type == 5
-                            || itemGift.template.type == 29 || itemGift.template.type == 27) {
-                        if (itemGift.template.id == 457) {
-                            itemGift.itemOptions.add(new Item.ItemOption(30, 0));
-                        } else {
-                            itemGift.itemOptions = giftcode.option;
-                            itemGift.quantity = quantity;
-                            addItemBag(p, itemGift, true);
-                        }
-                    } else {
-                        itemGift.quantity = quantity;
-                        addItemBag(p, itemGift, true);
-                    }
-                    textGift += "x" + quantity + " " + itemGift.template.name + "\b";
+
+                    itemGift.itemOptions = giftcode.option;
+                    itemGift.quantity = quantity;
+                    addItemBag(p, itemGift,true);
+
+                    Service.gI().sendThongBao(p, "Bạn nhận được X" + quantity + " " + itemGift.template.name);
+
+//                    textGift += "x" + quantity + " " + itemGift.template.name + "\b";
                 }
             }
         }
+
         sendItemBags(p);
-        Service.getInstance().sendThongBaoOK(p, textGift);
+
     }
 
     public List<Item> copyItemsBag(Player player) {

@@ -887,6 +887,10 @@ public class CombineServiceNew {
                     InventoryService.gI().subQuantityItemsBag(player, mTS, 999);
                     InventoryService.gI().subQuantityItemsBag(player, daMM, 1);
                 }
+                InventoryServiceNew.gI().sendItemBags(player);
+                Service.getInstance().sendMoney(player);
+                reOpenItemCombine(player);
+                
             } else {
                 sendEffectFailCombine(player);
             }

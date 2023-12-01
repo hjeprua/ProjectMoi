@@ -55,7 +55,7 @@ public class MessageSender implements Runnable {
             } catch (Exception e) {
             }
             try {
-                Thread.sleep(1L);
+                Thread.sleep(1l);
             } catch (Exception e) {
             }
         }

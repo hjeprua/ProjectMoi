@@ -27,6 +27,8 @@ public class EffectSkillService {
     public static final byte BLIND_EFFECT = 40;
     public static final byte SLEEP_EFFECT = 41;
     public static final byte STONE_EFFECT = 42;
+    public static final byte CANCAUTHUONG_EFFECT = 4;
+    public static final byte CANCAUCAOCAP_EFFECT = 15;
 
     private static EffectSkillService i;
 
@@ -149,9 +151,9 @@ public class EffectSkillService {
     //Thái dương hạ san &&&&****************************************************
     //player ăn choáng thái dương hạ san
     public void startStun(Player player, long lastTimeStartBlind, int timeBlind) {
-        if(player.effectSkill == null){
+        if (player.effectSkill == null) {
             return;
-        } 
+        }
         player.effectSkill.lastTimeStartStun = lastTimeStartBlind;
         player.effectSkill.timeStun = timeBlind;
         player.effectSkill.isStun = true;
@@ -195,7 +197,7 @@ public class EffectSkillService {
             com.nrolove.utils.Logger.logException(EffectSkillService.class, e);
         }
     }
-    
+
     public void sendMobTomaphongba(Player player, Mob mob, int timeBinh) {
         Message msg;
         try {
@@ -204,7 +206,7 @@ public class EffectSkillService {
             msg.writer().writeByte(mob.id); //mob id
             msg.writer().writeShort(11175); //icon socola
             Service.gI().sendMessAllPlayerInMap(player, msg);
-  
+
             msg.cleanup();
             mob.effectSkill.setBinh(System.currentTimeMillis(), timeBinh);
         } catch (Exception e) {
@@ -251,7 +253,7 @@ public class EffectSkillService {
             Logger.getLogger(EffectSkillService.class.getName()).log(Level.SEVERE, null, ex);
         }
         int timeMonkey = SkillUtil.getTimeMonkey(player.playerSkill.skillSelect.point);
-        if(player.setClothes.cadic == 5){
+        if (player.setClothes.cadic == 5) {
             timeMonkey *= 5;
         }
         player.effectSkill.isMonkey = true;
@@ -312,15 +314,17 @@ public class EffectSkillService {
         Service.getInstance().sendThongBao(player, "Khiên năng lượng đã bị vỡ!");
         ItemTimeService.gI().removeItemTime(player, 3784);
     }
+
     //**************************************************************************
     //Ma Phong Ba*********************************************************
-    public void SetHoaBinh(Player player, long lastTimeHoaBinh, int timeHoaBinh){
+    public void SetHoaBinh(Player player, long lastTimeHoaBinh, int timeHoaBinh) {
         player.effectSkill.lastTimeHoaBinh = lastTimeHoaBinh;
         player.effectSkill.timeBinh = timeHoaBinh;
         player.effectSkill.isBinh = true;
-        
+
     }
-    public void removeBinh(Player player){
+
+    public void removeBinh(Player player) {
         player.effectSkill.isBinh = false;
         Service.gI().Send_Caitrang(player);
     }

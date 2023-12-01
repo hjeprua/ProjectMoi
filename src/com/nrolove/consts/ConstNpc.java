@@ -170,6 +170,7 @@ public class ConstNpc {
     public static final int BUFF_PET = 514;
     public static final int CONFIRM_REMOVE_ALL_ITEM_LUCKY_ROUND = 515;
     public static final int MENU_FIND_PLAYER = 516;
+    public static final int PLAYER = 527;
     
     
     //index menu rong thieng

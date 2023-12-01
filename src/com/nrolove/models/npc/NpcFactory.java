@@ -2423,6 +2423,13 @@ public class NpcFactory {
                                 break;
                         }
                         break;
+                        case ConstNpc.PLAYER:
+                        switch (select) {
+                             case 0:
+                                Input.gI().tanghongngoc(player);
+                                break;
+                        }
+                        break;
                     case ConstNpc.CONFIRM_REMOVE_ALL_ITEM_LUCKY_ROUND:
                         if (select == 0) {
                             for (int i = 0; i < player.inventory.itemsBoxCrackBall.size(); i++) {

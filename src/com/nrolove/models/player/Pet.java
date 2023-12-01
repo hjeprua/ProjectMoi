@@ -525,9 +525,9 @@ public class Pet extends Player {
         } else if (this.isMabu && !this.isTransform) {
             return 297;
         } else if (inventory.itemsBody.get(5).isNotNullItem()) {
-            CaiTrang ct = Manager.gI().getCaiTrangByItemId(inventory.itemsBody.get(5).template.id);
-            if (ct != null) {
-                return (short) ((short) ct.getID()[0] != -1 ? ct.getID()[0] : inventory.itemsBody.get(5).template.part);
+            int head = inventory.itemsBody.get(5).template.head;
+            if (head != -1) {
+                return (short) head;
             }
         }
         if (this.nPoint.power < 1500000) {
@@ -546,9 +546,9 @@ public class Pet extends Player {
         } else if (this.isMabu && !this.isTransform) {
             return 298;
         } else if (inventory.itemsBody.get(5).isNotNullItem()) {
-            CaiTrang ct = Manager.gI().getCaiTrangByItemId(inventory.itemsBody.get(5).template.id);
-            if (ct != null && ct.getID()[1] != -1) {
-                return (short) ct.getID()[1];
+            int body = inventory.itemsBody.get(5).template.body;
+            if (body != -1) {
+                return (short) body;
             }
         }
         if (inventory.itemsBody.get(0).isNotNullItem()) {
@@ -570,9 +570,9 @@ public class Pet extends Player {
         } else if (this.isMabu && !this.isTransform) {
             return 299;
         } else if (inventory.itemsBody.get(5).isNotNullItem()) {
-            CaiTrang ct = Manager.gI().getCaiTrangByItemId(inventory.itemsBody.get(5).template.id);
-            if (ct != null && ct.getID()[2] != -1) {
-                return (short) ct.getID()[2];
+            int leg = inventory.itemsBody.get(5).template.leg;
+            if (leg != -1) {
+                return (short) leg;
             }
         }
         if (inventory.itemsBody.get(1).isNotNullItem()) {
